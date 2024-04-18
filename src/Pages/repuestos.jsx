@@ -8,6 +8,8 @@ const Repuestos = () => {
     const [cantidad, setCantidad] = useState('');
     const [idMarca, setIdMarca] = useState('');
 
+    const marcas = ['Samsung', 'Apple', 'Xiaomi', 'Oppo', 'Motorola', 'Huawei', 'Realme', 'Honor'];
+
     const handleRegistrar = () => {
         setRepuesto([...repuesto, { idProducto: idRepuesto, descripcion, precio, cantidad, idMarca }]);
         setIdProducto('');
@@ -21,13 +23,13 @@ const Repuestos = () => {
         const nuevaDescripcion = prompt('Ingrese la nueva descripción:');
         const nuevoPrecio = prompt('Ingrese el nuevo precio:');
         const nuevaCantidad = prompt('Ingrese la nueva cantidad:');
-        const nuevoIdMarca = prompt('Ingrese el nuevo ID de la Marca:');
-        if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevoIdMarca) {
+        const nuevaIdMarca = prompt('Ingrese el nuevo ID de la Marca:');
+        if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevaIdMarca) {
             const repuestosModificados = [...repuesto];
             repuestosModificados[index].descripcion = nuevaDescripcion;
             repuestosModificados[index].precio = nuevoPrecio;
             repuestosModificados[index].cantidad = nuevaCantidad;
-            repuestosModificados[index].idMarca = nuevoIdMarca;
+            repuestosModificados[index].idMarca = nuevaIdMarca;
             setRepuesto(repuestosModificados);
         }
     };
@@ -54,12 +56,13 @@ const Repuestos = () => {
     };
 
     const handleChangeIdMarca = (e) => {
-        const value = e.target.value.replace(/\D/, ''); // Remover todo lo que no sea un dígito
+        const value = e.target.value; // No se restringe a dígitos
         setIdMarca(value);
     };
 
     return (
-            <div className=" bg-white mx-auto rounded-lg px-8 pt-10 flex ">
+        <div className="flex justify-center items-center h-screen">
+            <div className="bg-white rounded-lg shadow-lg p-8 w-full flex flex-col md:flex-row">
                 <div className="mb-8 md:mb-0 md:w-1/2">
                     <h2 className="text-2xl font-bold mb-6">Repuesto</h2>
                     <div className="mb-4">
@@ -116,16 +119,21 @@ const Repuestos = () => {
                     </div>
                     <div className="mb-6">
                         <label htmlFor="idMarca" className="block font-medium mb-2">
-                            ID de la Marca
+                            Marca
                         </label>
-                        <input
-                            type="text"
+                        <select
                             id="idMarca"
                             className="w-full border border-gray-300 rounded-md py-2 px-4"
-                            placeholder="Ingrese el ID de la Marca"
                             value={idMarca}
                             onChange={handleChangeIdMarca}
-                        />
+                        >
+                            <option value="">Seleccione una marca</option>
+                            {marcas.map((marca, index) => (
+                                <option key={index} value={marca}>
+                                    {marca}
+                                </option>
+                            ))}
+                        </select>
                     </div>
                     <div className="flex justify-between">
                         <button
@@ -171,6 +179,7 @@ const Repuestos = () => {
                     )}
                 </div>
             </div>
+        </div>
     );
 };
 
