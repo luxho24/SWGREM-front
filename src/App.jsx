@@ -3,7 +3,7 @@ import NavBar from './components/navbar'
 import Layaut from './components/layaut'
 import {Routes,Route } from 'react-router-dom'
 import Inicio from "./Pages/inicio"
-import Quienes from "./Pages/quienes"
+import Productos from "./Pages/productos"
 import Login from "./Pages/login"
 import Registrar from "./Pages/registrar"
 import Repuestos from "./Pages/repuestos"
@@ -20,7 +20,7 @@ function App() {
         <Layaut>
         <Routes>
           <Route path ='/' element={<Inicio></Inicio>}></Route>
-          <Route path ='/quienes' element={<Quienes></Quienes>}></Route>
+          <Route path ='/productos' element={<Productos></Productos>}></Route>
           <Route path ='/login' element={<Login></Login>}></Route>
           <Route path ='/registrar' element={<Registrar></Registrar>}></Route>
         </Routes>
