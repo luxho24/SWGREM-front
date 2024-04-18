@@ -6,7 +6,9 @@ import Inicio from "./Pages/inicio"
 import Quienes from "./Pages/quienes"
 import Login from "./Pages/login"
 import Registrar from "./Pages/registrar"
+import Repuestos from "./Pages/repuestos"
 import Footer from './components/footer'
+import Marca from './Pages/marca'
 
 
 function App() {
@@ -20,7 +22,7 @@ function App() {
           <Route path ='/' element={<Inicio></Inicio>}></Route>
           <Route path ='/quienes' element={<Quienes></Quienes>}></Route>
           <Route path ='/login' element={<Login></Login>}></Route>
-          <Route path ='/registrar' element={<Registrar></Registrar>}></Route>
+          <Route path ='/repuestos' element={<Repuestos></Repuestos>}></Route>
         </Routes>
         
         </Layaut>
