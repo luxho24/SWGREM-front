@@ -7,8 +7,17 @@ const Repuestos = () => {
     const [precio, setPrecio] = useState('');
     const [cantidad, setCantidad] = useState('');
     const [idMarca, setIdMarca] = useState('');
+    const [modelosDisponibles, setModelosDisponibles] = useState([]);
+    const [modeloSeleccionado, setModeloSeleccionado] = useState('');
 
-    const marcas = ['Samsung', 'Apple', 'Xiaomi', 'Oppo', 'Motorola', 'Huawei', 'Realme', 'Honor'];
+    const marcas = ['Samsung', 'Apple', 'Xiaomi', 'Honor'];
+
+    const modelosPorMarca = {
+        Samsung: ['Galaxy S21', 'Galaxy Note 20', 'Galaxy A52'],
+        Apple: ['iPhone 13', 'iPhone 12', 'iPhone SE'],
+        Xiaomi: ['Mi 11', 'Redmi Note 10', 'POCO X3'],
+        Honor: ['Honor 50', 'Honor 30', 'Honor 20']
+    };
 
     const handleRegistrar = () => {
         setRepuesto([...repuesto, { idProducto: idRepuesto, descripcion, precio, cantidad, idMarca }]);
@@ -23,7 +32,7 @@ const Repuestos = () => {
         const nuevaDescripcion = prompt('Ingrese la nueva descripción:');
         const nuevoPrecio = prompt('Ingrese el nuevo precio:');
         const nuevaCantidad = prompt('Ingrese la nueva cantidad:');
-        const nuevaIdMarca = prompt('Ingrese el nuevo ID de la Marca:');
+        const nuevaIdMarca = prompt('Ingrese la nueva Marca::');
         if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevaIdMarca) {
             const repuestosModificados = [...repuesto];
             repuestosModificados[index].descripcion = nuevaDescripcion;
@@ -58,6 +67,13 @@ const Repuestos = () => {
     const handleChangeIdMarca = (e) => {
         const value = e.target.value; // No se restringe a dígitos
         setIdMarca(value);
+        setModelosDisponibles(modelosPorMarca[value] || []);
+        setModeloSeleccionado('');
+    };
+
+    const handleChangeModelo = (e) => {
+        const value = e.target.value;
+        setModeloSeleccionado(value);
     };
 
     return (
@@ -131,6 +147,24 @@ const Repuestos = () => {
                             {marcas.map((marca, index) => (
                                 <option key={index} value={marca}>
                                     {marca}
+                                </option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="modelo" className="block font-medium mb-2">
+                            Modelo
+                        </label>
+                        <select
+                            id="modelo"
+                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            value={modeloSeleccionado}
+                            onChange={handleChangeModelo}
+                        >
+                            <option value="">Seleccione un modelo</option>
+                            {modelosDisponibles.map((modelo, index) => (
+                                <option key={index} value={modelo}>
+                                    {modelo}
                                 </option>
                             ))}
                         </select>

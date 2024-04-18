@@ -20,7 +20,7 @@ const NavBar = () => {
           </nav>
 
           <NavLink to="/login" className={({isActive}) => isActive?activeLink:btnLink}>Iniciar Sesion</NavLink>
-          <NavLink to="/repuestos" className={({isActive}) => isActive?activeLink:btnLink}>Registro</NavLink>
+          <NavLink to="/registrar" className={({isActive}) => isActive?activeLink:btnLink}>Registro</NavLink>
 
         </div>
       </header>
