@@ -1,89 +1,6 @@
 const Footer = () => {
   return (
-    <div>
-        <footer className="text-white body-font" _msthidden="23">
-  <div className="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col" _msthidden="22">
-    <div className="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left" _msthidden="2">
-      <a className="flex title-font font-medium items-center md:justify-start justify-center text-gray-900" _msthidden="1">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" className="w-10 h-10 text-white p-2 bg-indigo-500 rounded-full" viewBox="0 0 24 24">
-          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-        </svg>
-        <span className="ml-3 text-xl" _msttexthash="156481" _msthidden="1" _msthash="581">Tailblocks</span>
-      </a>
-      <p className="mt-2 text-sm text-gray-500" _msttexthash="1676792" _msthidden="1" _msthash="582">Air plant banjo lyft occupy retro adaptogen indego</p>
-    </div>
-    <div className="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center" _msthidden="20">
-      <div className="lg:w-1/4 md:w-1/2 w-full px-4" _msthidden="5">
-        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" _msttexthash="111995" _msthidden="1" _msthash="583">CATEGORIES</h2>
-        <nav className="list-none mb-10" _msthidden="4">
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="132652" _msthidden="1" _msthash="584">First Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="151060" _msthidden="1" _msthash="585">Second Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="130351" _msthidden="1" _msthash="586">Third Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="154895" _msthidden="1" _msthash="587">Fourth Link</a>
-          </li>
-        </nav>
-      </div>
-      <div className="lg:w-1/4 md:w-1/2 w-full px-4" _msthidden="5">
-        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" _msttexthash="111995" _msthidden="1" _msthash="588">CATEGORIES</h2>
-        <nav className="list-none mb-10" _msthidden="4">
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="132652" _msthidden="1" _msthash="589">First Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="151060" _msthidden="1" _msthash="590">Second Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="130351" _msthidden="1" _msthash="591">Third Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="154895" _msthidden="1" _msthash="592">Fourth Link</a>
-          </li>
-        </nav>
-      </div>
-      <div className="lg:w-1/4 md:w-1/2 w-full px-4" _msthidden="5">
-        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" _msttexthash="111995" _msthidden="1" _msthash="593">CATEGORIES</h2>
-        <nav className="list-none mb-10" _msthidden="4">
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="132652" _msthidden="1" _msthash="594">First Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="151060" _msthidden="1" _msthash="595">Second Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="130351" _msthidden="1" _msthash="596">Third Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="154895" _msthidden="1" _msthash="597">Fourth Link</a>
-          </li>
-        </nav>
-      </div>
-      <div className="lg:w-1/4 md:w-1/2 w-full px-4" _msthidden="5">
-        <h2 className="title-font font-medium text-gray-900 tracking-widest text-sm mb-3" _msttexthash="111995" _msthidden="1" _msthash="598">CATEGORIES</h2>
-        <nav className="list-none mb-10" _msthidden="4">
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="132652" _msthidden="1" _msthash="599">First Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="151060" _msthidden="1" _msthash="600">Second Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="130351" _msthidden="1" _msthash="601">Third Link</a>
-          </li>
-          <li _msthidden="1">
-            <a className="text-gray-600 hover:text-gray-800" _msttexthash="154895" _msthidden="1" _msthash="602">Fourth Link</a>
-          </li>
-        </nav>
-      </div>
-    </div>
-  </div>
-  <div className="bg-gray-100" _msthidden="1">
+<div className="bg-gray-100" _msthidden="1">
     <div className="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row" _msthidden="1">
       <p className="text-gray-500 text-sm text-center sm:text-left" _msttexthash="2994290" _msthidden="1" _msthash="603">© 2020 Tailblocks —
         <a href="https://twitter.com/knyttneve" rel="noopener noreferrer" className="text-gray-600 ml-1" target="_blank">@knyttneve</a>
@@ -105,7 +22,7 @@ const Footer = () => {
             <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
           </svg>
         </a>
-        <a className="ml-3 text-gray-500">
+        <a className="ml-3 text-[#F0F3F4]">
           <svg fill="currentColor" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="0" className="w-5 h-5" viewBox="0 0 24 24">
             <path stroke="none" d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"></path>
             <circle cx="4" cy="4" r="2" stroke="none"></circle>
@@ -113,8 +30,6 @@ const Footer = () => {
         </a>
       </span>
     </div>
-  </div>
-</footer>
     </div>
  
 )

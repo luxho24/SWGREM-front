@@ -14,7 +14,7 @@ const NavBar = () => {
           </a>
           <nav className="md:ml-auto md:mr-auto flex flex-wrap items-center text-base justify-center">
             
-          <NavLink to="/" className={({isActive}) => isActive?activeLink:btnLink}> Quienes Somos </NavLink>
+          <NavLink to="/" className={({isActive}) => isActive?activeLink:btnLink}> Equipos Reparados </NavLink>
           <NavLink to="/productos" className={({isActive}) => isActive?activeLink:btnLink}>Productos</NavLink>
           <NavLink to="/repuestos" className={({isActive}) => isActive?activeLink:btnLink}>Repuestos</NavLink>
           <NavLink to="/marca" className={({isActive}) => isActive?activeLink:btnLink}>Marca</NavLink>
