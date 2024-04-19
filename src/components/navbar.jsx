@@ -16,6 +16,9 @@ const NavBar = () => {
             
           <NavLink to="/" className={({isActive}) => isActive?activeLink:btnLink}> Quienes Somos </NavLink>
           <NavLink to="/productos" className={({isActive}) => isActive?activeLink:btnLink}>Productos</NavLink>
+          <NavLink to="/repuestos" className={({isActive}) => isActive?activeLink:btnLink}>Repuestos</NavLink>
+          <NavLink to="/marca" className={({isActive}) => isActive?activeLink:btnLink}>Marca</NavLink>
+          <NavLink to="/cotizacion" className={({isActive}) => isActive?activeLink:btnLink}>Cotización</NavLink>
             
           </nav>
 
