@@ -24,12 +24,11 @@ const Registrar = () => {
     );
 
     return (
-        <div className="bg-gradient-to-b from-gray-300 to-gray-100">
+        <div className="bg-gradient-to-b from-gray-300 to-gray-100" >
             <section className="text-gray-600 body-font">
-                <div
-                    className="container px-5 py-24 mx-auto flex flex-wrap items-center object-cover h-300 w-full"
-                    style={{ backgroundImage: 'url("./src/images/Fondo.jpg")' }}
-                >
+            <div className="container px-5 py-24 mx-auto flex flex-wrap items-center object-cover h-300 w-full" >
+            
+                
                     <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
                         <h1 className="title-font font-medium text-5xl text-black-900">
                             "Reparaciones móviles, soluciones ágiles para tu
