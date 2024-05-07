@@ -10,6 +10,7 @@ import Repuestos from "./Pages/repuestos";
 import Footer from "./components/footer";
 import Marca from "./Pages/marca";
 import { AuthProvider } from './context/AuthProvider';
+import Cotizacion from "./Pages/cotizacion";
 
 function App() {
     return (
@@ -23,6 +24,10 @@ function App() {
                             <Route
                                 path="/productos"
                                 element={<Productos></Productos>}
+                            ></Route>
+                            <Route
+                                path="/cotizacion"
+                                element={<Cotizacion></Cotizacion>}
                             ></Route>
                             <Route
                                 path="/login"
