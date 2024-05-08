@@ -15,7 +15,7 @@ function App() {
     return (
         <>
             <AuthProvider>
-                <div className="bg-primary min-h-screen">
+                <div className="bg-gray-700 min-h-screen">
                     <NavBar />
                     <Layaut>
                         <Routes>
@@ -23,6 +23,10 @@ function App() {
                             <Route
                                 path="/productos"
                                 element={<Productos></Productos>}
+                            ></Route>
+                            <Route
+                                path="/marca"
+                                element={<Marca></Marca>}
                             ></Route>
                             <Route
                                 path="/login"

@@ -11,7 +11,6 @@ const AuthProvider = ({ children }) => {
             const token = localStorage.getItem("token");
 
             if (!token) {
-                setCargando(false);
                 return;
             }
 
