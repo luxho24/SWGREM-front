@@ -25,6 +25,7 @@ const Login = () => {
                 email,
                 password,
             });
+            console.log(data);
             localStorage.setItem("token", data.token); // Almacena el token en localStorage
             // Redirecciona a una ruta protegida o a la página de inicio, por ejemplo
             navigate("/");
