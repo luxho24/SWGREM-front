@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import clienteAxios from "../config/axios";
+import clienteAxios from "../../config/axios";
 
 const Login = () => {
     const [email, setEmail] = useState("");

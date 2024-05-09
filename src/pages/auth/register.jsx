@@ -1,8 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import clienteAxios from "../config/axios";
+import clienteAxios from "../../config/axios";
 import { useState } from "react";
 
-const Registrar = () => {
+const Register = () => {
     const [name, setName] = useState("");
     const [lastname, setLastname] = useState(""); // Estado para los apellidos
     const [sex, setSex] = useState(""); // Estado para el sexo
@@ -255,6 +255,6 @@ const Registrar = () => {
             </section>
         </div>
     );
-};
+}
 
-export default Registrar;
+export default Register
