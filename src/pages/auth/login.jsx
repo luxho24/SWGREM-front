@@ -1,5 +1,7 @@
-import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import Illustration1 from "../../assets/Illustration_1.png";
+import Fondo from "../../assets/background.jpg";
 import clienteAxios from "../../config/axios";
 
 const Login = () => {
@@ -12,22 +14,17 @@ const Login = () => {
         e.preventDefault();
 
         if ([email, password].includes("")) {
-            // setAlerta({
-            //     msg: "Todos los campos son obligatorios",
-            //     error: true,
-            // });
             console.log("Todos los campos son obligatorios");
             return;
         }
 
         try {
-            const {data} = await clienteAxios.post("/usuarios/login", {
+            const { data } = await clienteAxios.post("/usuarios/login", {
                 email,
                 password,
             });
             console.log(data);
-            localStorage.setItem("token", data.token); // Almacena el token en localStorage
-            // Redirecciona a una ruta protegida o a la página de inicio, por ejemplo
+            localStorage.setItem("token", data.token);
             navigate("/");
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
@@ -35,73 +32,104 @@ const Login = () => {
     };
 
     return (
-        <div>
-            <section className="text-gray-600 body-font">
-                <div className="container px-5 py-24 mx-auto flex flex-wrap items-center">
-                    <div className="lg:w-3/5 md:w-1/2 md:pr-16 lg:pr-0 pr-0">
-                        <h1 className="title-font font-medium text-3xl text-gray-900">
-                            Slow-carb next level shoindcgoitch ethical
-                            authentic, poko scenester
-                        </h1>
-                        <p className="leading-relaxed mt-4">
-                            Poke slow-carb mixtape knausgaard, typewriter street
-                            art gentrify hammock starladder roathse. Craies
-                            vegan tousled etsy austin.
-                        </p>
-                    </div>
-                    <div className="lg:w-2/6 md:w-1/2 bg-gray-100 rounded-lg p-8 flex flex-col md:ml-auto w-full mt-10 md:mt-0">
-                        <h2 className="text-gray-900 text-lg font-medium title-font mb-5">
-                            Iniciar Sesión
-                        </h2>
-                        <form onSubmit={handleSubmit}>
-                            <div className="relative mb-4">
-                                <label
-                                    for="email"
-                                    className="leading-7 text-sm text-gray-600"
-                                >
-                                    Correo electrónico
-                                </label>
-                                <input
-                                    type="email"
-                                    id="email"
-                                    name="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                />
-                            </div>
-                            <div className="relative mb-4">
-                                <label
-                                    for="password"
-                                    className="leading-7 text-sm text-gray-600"
-                                >
-                                    Contraseña
-                                </label>
-                                <input
-                                    type="password"
-                                    id="password"
-                                    name="password"
-                                    value={password}
-                                    onChange={(e) => setPassword(e.target.value)}
-                                    className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                                />
-                            </div>
-                            <button className="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">
-                                Button
-                            </button>
-                        </form>
-                        <p className="text-sm text-gray-500 mt-3">
-                            ¿No tienes una cuenta?{" "}
-                            <Link
-                                to="/registrar"
-                                className="hover:text-indigo-400"
+        <div
+            className="min-h-screen flex items-center justify-center"
+            style={{
+                backgroundImage: `url(${Fondo})`,
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "cover",
+                backgroundPosition: "center",
+            }}
+        >
+            <div className="bg-white w-[60%] shadow-lg rounded-lg flex">
+                <div
+                    className="rounded-l-lg overflow-hidden w-[40%]"
+                    style={{
+                        backgroundImage: `url(${Illustration1})`,
+                        backgroundRepeat: "no-repeat",
+                        backgroundSize: "cover",
+                        backgroundPosition: "center",
+                    }}
+                ></div>
+                <div className="w-[60%] p-20">
+                    <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
+                        Iniciar sesión
+                    </h2>
+                    <form onSubmit={handleSubmit}>
+                        <div className="mb-6">
+                            <label
+                                htmlFor="email"
+                                className="block text-gray-700 text-sm font-bold mb-2"
                             >
-                                Crea una cuenta
-                            </Link>
-                        </p>
-                    </div>
+                                Correo electrónico
+                            </label>
+                            <input
+                                type="email"
+                                id="email"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                placeholder="Correo electrónico"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                            />
+                        </div>
+                        <div className="mb-6">
+                            <label
+                                htmlFor="password"
+                                className="block text-gray-700 text-sm font-bold mb-2"
+                            >
+                                Contraseña
+                            </label>
+                            <input
+                                type="password"
+                                id="password"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                placeholder="Contraseña"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                            />
+                        </div>
+                        {/* <div className="flex items-center justify-between mb-6">
+                        <div className="flex items-center">
+                            <input
+                                type="checkbox"
+                                id="remember"
+                                className="mr-2"
+                            />
+                            <label
+                                htmlFor="remember"
+                                className="text-sm text-gray-700"
+                            >
+                                Recordarme
+                            </label>
+                        </div>
+                        <div>
+                            <a
+                                href="#"
+                                className="text-sm text-indigo-500 hover:text-indigo-600"
+                            >
+                                ¿Olvidaste tu contraseña?
+                            </a>
+                        </div>
+                    </div> */}
+                        <button
+                            type="submit"
+                            className="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
+                        >
+                            Iniciar sesión
+                        </button>
+                    </form>
+                    <hr className="my-6 border-gray-300 w-full" />
+                    <p className="text-sm text-center text-gray-700">
+                        ¿No tienes una cuenta?{" "}
+                        <NavLink
+                            to={"/register"}
+                            className="text-indigo-500 hover:text-indigo-600"
+                        >
+                            Regístrate aquí.
+                        </NavLink>
+                    </p>
                 </div>
-            </section>
+            </div>
         </div>
     );
 };

@@ -1,42 +1,118 @@
-import React from "react";
+import { useState } from "react";
+import { AiFillHome } from "react-icons/ai";
+import { FaBars } from "react-icons/fa";
+import { IoMdPricetags } from "react-icons/io";
+import { NavLink, Outlet, useNavigate } from "react-router-dom";
 
 const DashboardLayout = () => {
+    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const navigate = useNavigate();
+
+    const toggleSidebar = () => {
+        setIsSidebarOpen(!isSidebarOpen);
+    };
+
+    const handleItemClick = (path) => {
+        navigate(path);
+    };
+
+    const sidebarItems = [
+        {
+            itemName: "Inicio",
+            path: "/dashboard",
+            icon: <AiFillHome className="text-xl" />,
+        },
+        {
+            itemName: "Marca",
+            path: "brand",
+            icon: <IoMdPricetags className="text-xl" />,
+        },
+        {
+            itemName: "Contacto",
+            path: "contacto",
+            icon: <AiFillHome className="text-xl" />,
+        },
+        {
+            itemName: "Sobre Nosotros",
+            path: "sobre-nosotros",
+            icon: <AiFillHome className="text-xl" />,
+        },
+        {
+            itemName: "Dashboard",
+            path: "dashboard",
+            icon: <AiFillHome className="text-xl" />,
+        },
+    ];
+
     return (
-        <div className="bg-gray-200 min-h-screen">
-            {/* Barra de navegación */}
-            <nav className="bg-blue-500 p-4">
-                <h1 className="text-white text-2xl font-semibold">Dashboard</h1>
-            </nav>
-
-            {/* Contenedor principal */}
-            <div className="container mx-auto p-4">
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                    {/* Card 1 */}
-                    <div className="bg-white p-4 shadow-md rounded-md">
-                        <h2 className="text-xl font-semibold mb-2">Usuarios</h2>
-                        <p className="text-gray-600">Total: 100</p>
+        <div className="flex h-screen overflow-hidden">
+            {/* Sidebar */}
+            <div
+                className={`bg-gray-800 text-white ease-in duration-200 ${
+                    isSidebarOpen ? "w-64" : "w-16"
+                }`}
+            >
+                {isSidebarOpen ? (
+                    <NavLink to={"/"} className="p-4 flex items-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        <h2 className="text-lg font-semibold">Servicell -- KDC</h2>
+                    </NavLink>
+                ) : (
+                    <div className="p-4">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
                     </div>
+                )}
+                <ul>
+                    {sidebarItems.map((item, index) => (
+                        <li
+                            key={index}
+                            className="p-4 hover:bg-gray-700 cursor-pointer flex items-center gap-x-2"
+                            onClick={() => handleItemClick(item.path)}
+                        >
+                            {item.icon}
+                            {item.itemName}
+                        </li>
+                    ))}
+                </ul>
+            </div>
 
-                    {/* Card 2 */}
-                    <div className="bg-white p-4 shadow-md rounded-md">
-                        <h2 className="text-xl font-semibold mb-2">Ventas</h2>
-                        <p className="text-gray-600">Total: $10,000</p>
-                    </div>
-
-                    {/* Card 3 */}
-                    <div className="bg-white p-4 shadow-md rounded-md">
-                        <h2 className="text-xl font-semibold mb-2">
-                            Productos
-                        </h2>
-                        <p className="text-gray-600">Total: 50</p>
-                    </div>
-
-                    {/* Card 4 */}
-                    <div className="bg-white p-4 shadow-md rounded-md">
-                        <h2 className="text-xl font-semibold mb-2">Pedidos</h2>
-                        <p className="text-gray-600">Total: 20</p>
-                    </div>
+            {/* Contenido */}
+            <div className="flex-grow flex flex-col">
+                {/* Barra superior */}
+                <div className="bg-gray-900 p-4 flex justify-between items-center">
+                    <button className="text-white" onClick={toggleSidebar}>
+                        <FaBars />
+                    </button>
+                    <h1 className="text-white text-xl font-bold">
+                        Mi Dashboard
+                    </h1>
+                    <div></div>
                 </div>
+
+                {/* Contenido del dashboard */}
+                <Outlet />
             </div>
         </div>
     );
