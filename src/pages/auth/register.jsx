@@ -83,7 +83,25 @@ const Register = () => {
                         backgroundSize: "cover",
                         backgroundPosition: "center",
                     }}
-                ></div>
+                >
+                    <NavLink to={"/"} className="flex items-center">
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            className="w-16 h-16 text-white p-2 m-2 bg-indigo-500 rounded-full"
+                            viewBox="0 0 24 24"
+                        >
+                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                        </svg>
+                        <h1 className="text-gray-500 text-lg font-semibold">
+                            Regresar al Inicio
+                        </h1>
+                    </NavLink>
+                </div>
                 <div className="w-[60%] p-20">
                     <h2 className="text-3xl font-semibold text-center text-gray-800 mb-8">
                         Crear una cuenta

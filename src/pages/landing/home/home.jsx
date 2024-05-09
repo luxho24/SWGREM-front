@@ -3,7 +3,7 @@ import Logo from "../../../assets/Reparacion-de-celulares.png";
 
 export default function Home() {
     return (
-        <div className="min-h-screen flex flex-col gap-y-16 pt-20">
+        <div className="min-h-screen w-[90%] m-auto flex flex-col gap-y-16 pt-20">
             {/* Sección Banner Principal */}
             <section className="flex my-20">
                 <div className="w-1/2 flex flex-col justify-center p-20 gap-y-8">
@@ -19,14 +19,14 @@ export default function Home() {
                         para devolverle la vida a tu smartphone!
                     </h3>
                     <p className="text-center">
-                        Realiza una cotización de tu celular aquí
+                        Realiza una cotización de tu dispositivo aquí
                     </p>
                     <div className="flex justify-center">
                         <NavLink
                             to={"/quotation"}
                             className="bg-indigo-400 text-white px-8 py-2 rounded-lg hover:bg-indigo-500"
                         >
-                            Cotizar
+                            Cotizar Reparación
                         </NavLink>
                     </div>
                 </div>
@@ -38,19 +38,24 @@ export default function Home() {
             {/* Sección Sobre el Equipo de Trabajo */}
             <section className="my-20">
                 <div className="flex flex-col items-center">
-                    <h1 className="text-4xl font-semibold mb-8">
+                    <h1 className="text-4xl font-semibold mb-4">
                         Nuestro Equipo de Trabajo
                     </h1>
+                    <p className="mb-8 text-center w-[50rem]">
+                        Conoce a nuestro talentoso equipo: juntos, transformamos
+                        problemas en soluciones. Descubre quiénes somos y cómo
+                        trabajamos para ofrecerte la mejor experiencia.
+                    </p>
                     <hr className="w-[50rem] h-[2px] bg-gray-300 mb-8" />
                 </div>
-                <div className="w-full flex justify-center gap-x-52">
+                <div className="w-full flex justify-center gap-x-16">
                     <div className="flex flex-col items-center">
                         <img
-                            src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+                            src="https://img.freepik.com/fotos-premium/joven-empresario-al-aire-libre-entorno-moderno_53419-11374.jpg"
                             alt=""
-                            className="w-64 h-64 rounded-full object-cover my-12"
+                            className="w-52 h-52 rounded-full object-cover my-12"
                         />
-                        <p className="w-96">
+                        <p className="w-72 text-center">
                             Lorem ipsum dolor sit amet consectetur, adipisicing
                             elit. Autem modi fuga labore molestias harum aliquam
                             rerum odio error velit quasi. Exercitationem,
@@ -62,9 +67,9 @@ export default function Home() {
                         <img
                             src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
                             alt=""
-                            className="w-64 h-64 rounded-full object-cover my-12"
+                            className="w-52 h-52 rounded-full object-cover my-12"
                         />
-                        <p className="w-96">
+                        <p className="w-72 text-center">
                             Lorem ipsum dolor sit amet consectetur, adipisicing
                             elit. Autem modi fuga labore molestias harum aliquam
                             rerum odio error velit quasi. Exercitationem,
@@ -74,11 +79,25 @@ export default function Home() {
                     </div>
                     <div className="flex flex-col items-center">
                         <img
-                            src="https://images.ctfassets.net/h6goo9gw1hh6/2sNZtFAWOdP1lmQ33VwRN3/24e953b920a9cd0ff2e1d587742a2472/1-intro-photo-final.jpg?w=1200&h=992&fl=progressive&q=70&fm=jpg"
+                            src="https://thumbs.wbm.im/pw/small/39573f81d4d58261e5e1ed8f1ff890f6.jpg"
                             alt=""
-                            className="w-64 h-64 rounded-full object-cover my-12"
+                            className="w-52 h-52 rounded-full object-cover my-12"
                         />
-                        <p className="w-96">
+                        <p className="w-72 text-center">
+                            Lorem ipsum dolor sit amet consectetur, adipisicing
+                            elit. Autem modi fuga labore molestias harum aliquam
+                            rerum odio error velit quasi. Exercitationem,
+                            consectetur ratione quis nobis sit explicabo ut
+                            aliquid pariatur.
+                        </p>
+                    </div>
+                    <div className="flex flex-col items-center">
+                        <img
+                            src="https://t4.ftcdn.net/jpg/03/70/29/03/360_F_370290384_K0VEqnA7kgxmabRn0QXiyBCbCyPGWNeh.jpg"
+                            alt=""
+                            className="w-52 h-52 rounded-full object-cover my-12"
+                        />
+                        <p className="w-72 text-center">
                             Lorem ipsum dolor sit amet consectetur, adipisicing
                             elit. Autem modi fuga labore molestias harum aliquam
                             rerum odio error velit quasi. Exercitationem,
@@ -92,9 +111,15 @@ export default function Home() {
             {/* Sección Acerca del Negocio */}
             <section className="my-20">
                 <div className="flex flex-col items-center">
-                    <h1 className="text-center text-4xl font-semibold mb-8">
+                    <h1 className="text-center text-4xl font-semibold mb-4">
                         Acerca del Negocio
                     </h1>
+                    <p className="mb-8 text-center w-[50rem]">
+                        En SERVICELL K&D, nuestro objetivo es simple:
+                        proporcionar soluciones expertas para tus dispositivos
+                        móviles. Descubre cómo nuestro equipo comprometido y
+                        calificado puede ayudarte hoy.
+                    </p>
                     <hr className="w-[50rem] h-[2px] bg-gray-300 mb-8" />
                 </div>
                 <div className="flex">
@@ -134,9 +159,15 @@ export default function Home() {
             {/* Sección Contáctanos */}
             <section className="my-20">
                 <div className="flex flex-col items-center">
-                    <h1 className="text-center text-4xl font-semibold mb-8">
+                    <h1 className="text-center text-4xl font-semibold mb-4">
                         ¿Necesitas Ayuda?
                     </h1>
+                    <p className="mb-8 text-center w-[50rem]">
+                        Estamos aquí para ayudarte en lo que necesites. No dudes
+                        en ponerte en contacto con nosotros y nuestro equipo
+                        estará encantado de brindarte el apoyo que necesitas.
+                        ¡Tu satisfacción es nuestra prioridad!
+                    </p>
                     <hr className="w-[50rem] h-[2px] bg-gray-300 mb-8" />
                 </div>
                 <div className="flex">
