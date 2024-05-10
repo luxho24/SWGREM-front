@@ -4,20 +4,25 @@ const BrandDashboard = () => {
     const [equipos, setEquipos] = useState([]);
     const [marca, setMarca] = useState('');
     const [modelo, setModelo] = useState('');
+    const [descripcion, setDescripcion] = useState('');
 
     const handleRegistrar = () => {
-        setEquipos([...equipos, { marca, modelo }]);
+        setEquipos([...equipos, { marca, modelo, descripcion }]);
         setMarca('');
         setModelo('');
+        setDescripcion('');
     };
 
     const handleModificar = (index) => {
+		const nuevaMarca = prompt('Ingrese el nueva marca:');
         const nuevoModelo = prompt('Ingrese el nuevo modelo:');
-        if (nuevoModelo) {
-            const equiposModificados = [...equipos];
-            equiposModificados[index].modelo = nuevoModelo;
-            setEquipos(equiposModificados);
-        }
+        const nuevaDescripcion = prompt('Ingrese la nueva descripción:');
+        if (nuevaMarca && nuevoModelo && nuevaDescripcion) {
+			equiposModificados[index].marca = nuevaMarca;
+			equiposModificados[index].modelo = nuevoModelo;
+			equiposModificados[index].descripcion = nuevaDescripcion;
+			setEquipos(equiposModificados);
+		}
     };
 
     const handleEliminar = (index) => {
@@ -27,6 +32,10 @@ const BrandDashboard = () => {
 
     const handleEliminarTodos = () => {
         setEquipos([]);
+    };
+
+    const handleVerDetalles = (equipo) => {
+        alert(`Marca: ${equipo.marca}\nModelo: ${equipo.modelo}\nDescripción: ${equipo.descripcion}`);
     };
 
     return (
@@ -45,7 +54,7 @@ const BrandDashboard = () => {
                             onChange={(e) => setMarca(e.target.value)}
                         />
                     </div>
-                    <div className="mb-6">
+                    <div className="mb-4">
                         <label htmlFor="modelo" className="block font-medium mb-2">Modelo</label>
                         <input
                             type="text"
@@ -54,6 +63,16 @@ const BrandDashboard = () => {
                             placeholder="Ingrese el modelo"
                             value={modelo}
                             onChange={(e) => setModelo(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="descripcion" className="block font-medium mb-2">Descripción</label>
+                        <textarea
+                            id="descripcion"
+                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            placeholder="Ingrese una descripción del equipo"
+                            value={descripcion}
+                            onChange={(e) => setDescripcion(e.target.value)}
                         />
                     </div>
                     <div className="flex justify-end space-x-4">
@@ -86,6 +105,12 @@ const BrandDashboard = () => {
                                             onClick={() => handleModificar(index)}
                                         >
                                             Modificar
+                                        </button>
+                                        <button
+                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                            onClick={() => handleVerDetalles(equipo)}
+                                        >
+                                            Ver Detalles
                                         </button>
                                         <button
                                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
