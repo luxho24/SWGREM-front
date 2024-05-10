@@ -1,63 +1,107 @@
-import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
-import clienteAxios from "../../config/axios";
+import React, { useState } from 'react';
 
 const BrandDashboard = () => {
-  const [nameMar, setNameMar] = useState("");
-	const [ModelMar, setModelMar] = useState("");
+    const [equipos, setEquipos] = useState([]);
+    const [marca, setMarca] = useState('');
+    const [modelo, setModelo] = useState('');
 
-	const navigate = useNavigate();
+    const handleRegistrar = () => {
+        setEquipos([...equipos, { marca, modelo }]);
+        setMarca('');
+        setModelo('');
+    };
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+    const handleModificar = (index) => {
+        const nuevoModelo = prompt('Ingrese el nuevo modelo:');
+        if (nuevoModelo) {
+            const equiposModificados = [...equipos];
+            equiposModificados[index].modelo = nuevoModelo;
+            setEquipos(equiposModificados);
+        }
+    };
 
-		if ([nameMar, ModelMar].includes("")) {
-			// setAlerta({
-			//     msg: "Todos los campos son obligatorios",
-			//     error: true,
-			// });
-			console.log("Todos los campos son obligatorios");
-			return;
-		}
+    const handleEliminar = (index) => {
+        const equiposActualizados = equipos.filter((_, i) => i !== index);
+        setEquipos(equiposActualizados);
+    };
 
-		try {
-			await clienteAxios.post("/marca/registrar", {
-				nameMar,
-				ModelMar,
-			});
-		} catch (error) {
-			console.error("Error al iniciar sesión:", error);
-		}
-	};
-  return (
-    <div className="lg:w-2/6 md:w-1/2 bg-cyan-400 rounded-lg p-8 flex flex-col mx-auto mt-10 md:mt-1">
+    const handleEliminarTodos = () => {
+        setEquipos([]);
+    };
 
-			<h2 className="text-gray-900 text-lg font-medium title-font mb-5">Registrar Marca de Dispositivo</h2>
+    return (
+        <div className="flex justify-center items-start h-screen">
+            <div className="bg-white rounded-lg shadow-lg p-8 w-full flex flex-col md:flex-row">
+                <div className="mb-8 md:mb-0 md:w-1/2">
+                    <h2 className="text-2xl font-bold mb-6">Equipo</h2>
+                    <div className="mb-4">
+                        <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
+                        <input
+                            type="text"
+                            id="marca"
+                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            placeholder="Ingrese la marca"
+                            value={marca}
+                            onChange={(e) => setMarca(e.target.value)}
+                        />
+                    </div>
+                    <div className="mb-6">
+                        <label htmlFor="modelo" className="block font-medium mb-2">Modelo</label>
+                        <input
+                            type="text"
+                            id="modelo"
+                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            placeholder="Ingrese el modelo"
+                            value={modelo}
+                            onChange={(e) => setModelo(e.target.value)}
+                        />
+                    </div>
+                    <div className="flex justify-end space-x-4">
+                        <button
+                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={handleRegistrar}
+                        >
+                            Registrar
+                        </button>
+                        <button
+                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={handleEliminarTodos}
+                        >
+                            Eliminar Todos
+                        </button>
+                    </div>
+                </div>
+                <div className="md:w-1/2 md:ml-8">
+                    <h2 className="text-2xl font-bold mb-6">Equipos Registrados</h2>
+                    {equipos.length === 0 ? (
+                        <p>No hay equipos registrados</p>
+                    ) : (
+                        <ul>
+                            {equipos.map((equipo, index) => (
+                                <li key={index} className="flex justify-between items-center mb-2">
+                                    <span>{equipo.marca} - {equipo.modelo}</span>
+                                    <div>
+                                        <button
+                                            className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
+                                            onClick={() => handleModificar(index)}
+                                        >
+                                            Modificar
+                                        </button>
+                                        <button
+                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                            onClick={() => handleEliminar(index)}
+                                        >
+                                            Eliminar
+                                        </button>
+                                    </div>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
 
-			<form onSubmit={handleSubmit}>
-				<div className="relative mb-2">
-					<label for="nombre-celular" className="leading-7 text-sm text-gray-600">Nombre del Cliente</label>
-					<input type="text" id="nombre-celular" value={nameMar} onChange={(e) => setNameMar(e.target.value)} className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-				</div>
-
-				<div className="relative mb-2">
-					<label for="marca-celular" className="leading-7 text-sm text-gray-600">Marca del Telefono</label>
-					<input type="text" id="marca-celular" value={ModelMar} onChange={(e) => setModelMar(e.target.value)} className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out" />
-				</div>
-
-				<div className="flex justify-around mt-4">
-					<button className="text-black bg-blue-100 border-4 border-black py-2 px-5 focus:outline-none hover:bg-blue-600 rounded">Registrar</button>
-
-					<button className="text-black bg-yellow-100 border-4 border-black py-2 px-5 focus:outline-none hover:bg-yellow-400 rounded text">Modificar</button>
-
-					<button className="text-black bg-orange-100 border-4 border-black py-2 px-5 focus:outline-none hover:bg-red-600 rounded text">Cancelar</button>
-				</div>
-			</form>
-
-			<p className="text-xs text-gray-500 mt-3">Sugerencias y correciónes al @gerente.</p>
-		</div>
-    
-  )
-}
-
-export default BrandDashboard
+export default BrandDashboard;
