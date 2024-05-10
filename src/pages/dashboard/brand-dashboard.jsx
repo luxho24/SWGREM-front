@@ -94,12 +94,12 @@ const BrandDashboard = () => {
                         <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
                         <input list="marcas" type="text" id="marca" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese la marca" value={marca} onChange={(e) => setMarca(e.target.value)} />
                         <datalist id="marcas">
-                            <option value="Apple" />
-                            <option value="Samsung" />
-                            <option value="Xiaomi" />
-                            <option value="Motorola" />
-                            <option value="Honor" />
-                            <option value="Oppo" />
+                            <option value="Apple"/>
+                            <option value="Samsung"/>
+                            <option value="Xiaomi"/>
+                            <option value="Motorola"/>
+                            <option value="Honor"/>
+                            <option value="Oppo"/>
                         </datalist>
                     </div>
                     <div className="mb-4">
@@ -119,7 +119,6 @@ const BrandDashboard = () => {
                             onChange={(e) => setDescripcion(e.target.value)}
                         />
                     </div>
-
                     <div className="flex justify-end space-x-4">
                         {editIndex === -1 ? (
                             <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded" onClick={handleRegistrar}>
