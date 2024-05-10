@@ -11,7 +11,7 @@ const AuthProvider = ({ children }) => {
             const token = localStorage.getItem("token");
 
             if (!token) {
-                setCargando(false);
+                // setCargando(false);
                 return;
             }
 
@@ -23,17 +23,18 @@ const AuthProvider = ({ children }) => {
             };
 
             try {
-                const { data } = await clienteAxios(
+                // const { data } = await clienteAxios(
+                await clienteAxios(
                     "/usuarios/register",
                     config
                 ); // Por defecto es clienteAxios.get(), pero se puede simplificar de la siguiente manera: clienteAxios()
-                setAuth(data);
+                // setAuth(data);
             } catch (error) {
                 console.log(error.response.data.msg);
-                setAuth({});
+                // setAuth({});
             }
 
-            setCargando(false);
+            // setCargando(false);
         };
 
         autenticarUsuario();
@@ -41,7 +42,7 @@ const AuthProvider = ({ children }) => {
 
     const cerrarSesion = () => {
         localStorage.removeItem("token");
-        setAuth({});
+        // setAuth({});
     };
 
     return (
