@@ -56,11 +56,7 @@ export default function Home() {
                             className="w-52 h-52 rounded-full object-cover my-12"
                         />
                         <p className="w-72 text-center">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Autem modi fuga labore molestias harum aliquam
-                            rerum odio error velit quasi. Exercitationem,
-                            consectetur ratione quis nobis sit explicabo ut
-                            aliquid pariatur.
+                            TP1 - Alessandro Ronceros
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -70,11 +66,7 @@ export default function Home() {
                             className="w-52 h-52 rounded-full object-cover my-12"
                         />
                         <p className="w-72 text-center">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Autem modi fuga labore molestias harum aliquam
-                            rerum odio error velit quasi. Exercitationem,
-                            consectetur ratione quis nobis sit explicabo ut
-                            aliquid pariatur.
+                            TP2 - Jesus Vidaurre
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -84,11 +76,7 @@ export default function Home() {
                             className="w-52 h-52 rounded-full object-cover my-12"
                         />
                         <p className="w-72 text-center">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Autem modi fuga labore molestias harum aliquam
-                            rerum odio error velit quasi. Exercitationem,
-                            consectetur ratione quis nobis sit explicabo ut
-                            aliquid pariatur.
+                            TP3 - Jorge Manchego
                         </p>
                     </div>
                     <div className="flex flex-col items-center">
@@ -98,11 +86,7 @@ export default function Home() {
                             className="w-52 h-52 rounded-full object-cover my-12"
                         />
                         <p className="w-72 text-center">
-                            Lorem ipsum dolor sit amet consectetur, adipisicing
-                            elit. Autem modi fuga labore molestias harum aliquam
-                            rerum odio error velit quasi. Exercitationem,
-                            consectetur ratione quis nobis sit explicabo ut
-                            aliquid pariatur.
+                            TP5 - Luis Sanchez
                         </p>
                     </div>
                 </div>
@@ -135,21 +119,8 @@ export default function Home() {
                                 Conócenos un poco mas...
                             </h1>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Sed atque qui quae ipsum,
-                                soluta accusantium, suscipit libero cupiditate,
-                                molestias cum ad consequuntur? Ipsa fuga saepe
-                                perferendis, reiciendis velit eligendi
-                                corporis.Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Sed atque qui quae ipsum,
-                                soluta accusantium, suscipit libero cupiditate,
-                                molestias cum ad consequuntur? Ipsa fuga saepe
-                                perferendis, reiciendis velit eligendi
-                                corporis.Lorem ipsum dolor sit amet consectetur,
-                                adipisicing elit. Sed atque qui quae ipsum,
-                                soluta accusantium, suscipit libero cupiditate,
-                                molestias cum ad consequuntur? Ipsa fuga saepe
-                                perferendis, reiciendis velit eligendi corporis.
+                                Nos dedicamos a la Reparación de Equipos Moviles , Tablets y Laptos, desde microcomponentes , pantallas , baterias , y mas contamos con garantia 
+                                de 3 a 6 meses.
                             </p>
                         </div>
                     </div>
