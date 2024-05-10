@@ -23,18 +23,18 @@ const DashboardLayout = () => {
             icon: <AiFillHome className="text-xl" />,
         },
         {
-            itemName: "Marca",
+            itemName: "Gestionar Marca",
             path: "brand",
             icon: <IoMdPricetags className="text-xl" />,
         },
         {
-            itemName: "Contacto",
-            path: "contacto",
+            itemName: "Repuestos",
+            path: "spare-parts",
             icon: <AiFillHome className="text-xl" />,
         },
         {
             itemName: "Sobre Nosotros",
-            path: "sobre-nosotros",
+            path: "",
             icon: <AiFillHome className="text-xl" />,
         },
         {

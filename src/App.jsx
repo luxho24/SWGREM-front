@@ -11,6 +11,7 @@ import { AuthProvider } from "./context/AuthProvider";
 import AuthLayout from "./layout/AuthLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import LandingLayout from "./layout/LandingLayout";
+import SparePartsDashboard from "./pages/dashboard/spare-parts-dashboard";
 
 function App() {
     return (
@@ -41,6 +42,10 @@ function App() {
                         <Route
                             path="brand"
                             element={<BrandDashboard />}
+                        ></Route>
+                        <Route
+                            path="spare-parts"
+                            element={<SparePartsDashboard />}
                         ></Route>
                     </Route>
                 </Routes>
