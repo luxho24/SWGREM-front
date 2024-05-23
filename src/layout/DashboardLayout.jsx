@@ -33,6 +33,11 @@ const DashboardLayout = () => {
             icon: <AiFillHome className="text-xl" />,
         },
         {
+            itemName: "Cotizacion",
+            path: "quotation",
+            icon: <AiFillHome className="text-xl" />,
+        },
+        {
             itemName: "Sobre Nosotros",
             path: "",
             icon: <AiFillHome className="text-xl" />,

@@ -12,6 +12,7 @@ import AuthLayout from "./layout/AuthLayout";
 import DashboardLayout from "./layout/DashboardLayout";
 import LandingLayout from "./layout/LandingLayout";
 import SparePartsDashboard from "./pages/dashboard/spare-parts-dashboard";
+import QuotationDashboard from "./pages/dashboard/quotation-dashboard";
 
 function App() {
     return (
@@ -42,6 +43,10 @@ function App() {
                         <Route
                             path="brand"
                             element={<BrandDashboard />}
+                        ></Route>
+                        <Route
+                            path="quotation"
+                            element={<QuotationDashboard />}
                         ></Route>
                         <Route
                             path="spare-parts"
