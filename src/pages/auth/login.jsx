@@ -1,12 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Illustration1 from "../../assets/Illustration_1.png";
 import Fondo from "../../assets/background.jpg";
 import clienteAxios from "../../config/axios";
+import AuthContext from "../../context/AuthProvider";
 
 const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const { setAuth } = useContext(AuthContext);
 
     const navigate = useNavigate();
 
@@ -23,8 +25,8 @@ const Login = () => {
                 email,
                 password,
             });
-            console.log(data);
             localStorage.setItem("token", data.token);
+            setAuth(data);
             navigate("/");
         } catch (error) {
             console.error("Error al iniciar sesión:", error);
@@ -56,10 +58,10 @@ const Login = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            className="w-16 h-16 text-white p-2 m-2 bg-indigo-500 rounded-full"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
+                            className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
                             viewBox="0 0 24 24"
                         >
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
@@ -129,12 +131,11 @@ const Login = () => {
                             </a>
                         </div>
                     </div> */}
-                        <button
+                        <input
                             type="submit"
                             className="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
-                        >
-                            Iniciar sesión
-                        </button>
+                            value="Iniciar sesión"
+                        />
                     </form>
                     <hr className="my-6 border-gray-300 w-full" />
                     <p className="text-sm text-center text-gray-700">

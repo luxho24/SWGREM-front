@@ -4,14 +4,15 @@ import clienteAxios from "../config/axios";
 const AuthContext = createContext();
 
 const AuthProvider = ({ children }) => {
-    const [user, setUser] = useState(null);
+    const [cargando, setCargando] = useState(true);
+    const [auth, setAuth] = useState(null);
 
     useEffect(() => {
         const autenticarUsuario = async () => {
             const token = localStorage.getItem("token");
 
             if (!token) {
-                // setCargando(false);
+                setCargando(false);
                 return;
             }
 
@@ -24,29 +25,34 @@ const AuthProvider = ({ children }) => {
 
             try {
                 // const { data } = await clienteAxios(
-                await clienteAxios(
-                    "/usuarios/register",
+                const { data } = await clienteAxios.get(
+                    "/usuarios/perfil",
                     config
                 ); // Por defecto es clienteAxios.get(), pero se puede simplificar de la siguiente manera: clienteAxios()
-                // setAuth(data);
+                setAuth(data);
+                // console.log(auth);
             } catch (error) {
                 console.log(error.response.data.msg);
-                // setAuth({});
+                setAuth({});
             }
 
-            // setCargando(false);
+            setCargando(false);
         };
 
         autenticarUsuario();
     }, []);
 
+    //     useEffect(() => {
+    //     console.log(auth); // Este console.log imprimirá auth cada vez que cambie
+    // }, [auth]);
+
     const cerrarSesion = () => {
         localStorage.removeItem("token");
-        // setAuth({});
+        setAuth(null);
     };
 
     return (
-        <AuthContext.Provider value={{ user, cerrarSesion }}>
+        <AuthContext.Provider value={{ auth, setAuth, cerrarSesion, cargando }}>
             {children}
         </AuthContext.Provider>
     );

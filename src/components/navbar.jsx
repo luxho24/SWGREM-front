@@ -1,6 +1,14 @@
-import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
 
-const NavBar = ({ isLoggedIn }) => {
+const NavBar = () => {
+    const { auth, cerrarSesion } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const handleNavigation = (path) => {
+        navigate(path);
+    };
     return (
         <nav className="bg-gray-800 p-4 fixed w-full">
             <div className="w-[90%] flex justify-between items-center m-auto">
@@ -9,9 +17,9 @@ const NavBar = ({ isLoggedIn }) => {
                         xmlns="http://www.w3.org/2000/svg"
                         fill="none"
                         stroke="currentColor"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth="2"
                         className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
                         viewBox="0 0 24 24"
                     >
@@ -47,7 +55,7 @@ const NavBar = ({ isLoggedIn }) => {
                     >
                         Sobre Nosotros
                     </NavLink>
-                    {isLoggedIn && (
+                    {auth && (
                         <NavLink
                             to={"/dashboard"}
                             className="text-white hover:text-gray-300 px-4"
@@ -58,13 +66,14 @@ const NavBar = ({ isLoggedIn }) => {
                 </div>
 
                 <div>
-                    {isLoggedIn ? (
-                        <a
-                            href="#"
+                    {auth ? (
+                        <button
+                            type="button"
                             className="text-white hover:text-gray-300 px-4"
+                            onClick={cerrarSesion}
                         >
-                            Perfil del Usuario
-                        </a>
+                            Cerrar Sesion
+                        </button>
                     ) : (
                         <NavLink
                             to={"login"}

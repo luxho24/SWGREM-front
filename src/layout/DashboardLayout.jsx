@@ -1,12 +1,48 @@
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { AiFillHome } from "react-icons/ai";
-import { FaBars } from "react-icons/fa";
+import { FaBars, FaBoxOpen, FaFileAlt, FaTools } from "react-icons/fa";
 import { IoMdPricetags } from "react-icons/io";
 import { NavLink, Outlet, useNavigate } from "react-router-dom";
+import AuthContext from "../context/AuthProvider";
+
+const sidebarItems = [
+    {
+        itemName: "Inicio",
+        path: "/dashboard",
+        icon: <AiFillHome className="text-xl" />,
+    },
+    {
+        itemName: "Marca",
+        path: "/dashboard/brand",
+        icon: <IoMdPricetags className="text-xl" />,
+    },
+    {
+        itemName: "Repuestos",
+        path: "/dashboard/replacement",
+        icon: <FaTools className="text-xl" />,
+    },
+    {
+        itemName: "Cotización",
+        path: "/dashboard/quotation",
+        icon: <FaFileAlt className="text-xl" />,
+    },
+    {
+        itemName: "Inventario",
+        path: "/dashboard/inventory",
+        icon: <FaBoxOpen className="text-xl" />,
+    },
+];
 
 const DashboardLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+    const { auth, cargando } = useContext(AuthContext);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if (!cargando && !auth) {
+            navigate("/login", { replace: true });
+        }
+    }, [auth, cargando, navigate]);
 
     const toggleSidebar = () => {
         setIsSidebarOpen(!isSidebarOpen);
@@ -15,34 +51,6 @@ const DashboardLayout = () => {
     const handleItemClick = (path) => {
         navigate(path);
     };
-
-    const sidebarItems = [
-        {
-            itemName: "Inicio",
-            path: "/dashboard",
-            icon: <AiFillHome className="text-xl" />,
-        },
-        {
-            itemName: "Marca",
-            path: "brand",
-            icon: <IoMdPricetags className="text-xl" />,
-        },
-        {
-            itemName: "Contacto",
-            path: "contacto",
-            icon: <AiFillHome className="text-xl" />,
-        },
-        {
-            itemName: "Sobre Nosotros",
-            path: "sobre-nosotros",
-            icon: <AiFillHome className="text-xl" />,
-        },
-        {
-            itemName: "Dashboard",
-            path: "dashboard",
-            icon: <AiFillHome className="text-xl" />,
-        },
-    ];
 
     return (
         <div className="flex h-screen overflow-hidden">
@@ -58,41 +66,49 @@ const DashboardLayout = () => {
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
                             stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth="2"
                             className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
                             viewBox="0 0 24 24"
                         >
                             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                         </svg>
-                        <h2 className="text-lg font-semibold">Servicell -- KDC</h2>
+                        <h2 className="text-lg font-semibold">
+                            Servicell -- KDC
+                        </h2>
                     </NavLink>
                 ) : (
-                    <div className="p-4">
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
-                            viewBox="0 0 24 24"
-                        >
-                            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
-                        </svg>
+                    <div className="py-4 px-3">
+                        <NavLink to={"/"}>
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                stroke-width="2"
+                                className="w-10 h-10 text-white p-2 mr-2 bg-indigo-500 rounded-full"
+                                viewBox="0 0 24 24"
+                            >
+                                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+                            </svg>
+                        </NavLink>
                     </div>
                 )}
-                <ul>
+                <ul className="flex flex-col gap-y-4">
                     {sidebarItems.map((item, index) => (
                         <li
                             key={index}
-                            className="p-4 hover:bg-gray-700 cursor-pointer flex items-center gap-x-2"
+                            className={`p-4 hover:bg-gray-700 cursor-pointer flex items-center ${
+                                isSidebarOpen
+                                    ? "justify-start"
+                                    : "justify-center"
+                            } gap-x-2`}
                             onClick={() => handleItemClick(item.path)}
                         >
                             {item.icon}
-                            {item.itemName}
+                            {isSidebarOpen && item.itemName}
                         </li>
                     ))}
                 </ul>

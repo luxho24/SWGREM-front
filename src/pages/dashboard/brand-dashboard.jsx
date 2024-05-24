@@ -1,9 +1,5 @@
-
-
 const BrandDashboard = () => {
-  return (
-    <div>BrandDashboard</div>
-  )
-}
+    return <div>BrandDashboard</div>;
+};
 
-export default BrandDashboard
+export default BrandDashboard;
