@@ -36,6 +36,7 @@ const sidebarItems = [
 const DashboardLayout = () => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
     const { auth, cargando } = useContext(AuthContext);
+    const [hoveredItem, setHoveredItem] = useState(null);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -52,11 +53,15 @@ const DashboardLayout = () => {
         navigate(path);
     };
 
+    if (cargando) {
+        return <div>Loading...</div>; // O un spinner o cualquier componente de carga
+    }
+
     return (
         <div className="flex h-screen overflow-hidden">
             {/* Sidebar */}
             <div
-                className={`bg-gray-800 text-white ease-in duration-200 ${
+                className={`bg-gray-800 text-white flex flex-col gap-y-8 ease-in duration-200 ${
                     isSidebarOpen ? "w-64" : "w-16"
                 }`}
             >
@@ -106,9 +111,16 @@ const DashboardLayout = () => {
                                     : "justify-center"
                             } gap-x-2`}
                             onClick={() => handleItemClick(item.path)}
+                            onMouseEnter={() => setHoveredItem(index)}
+                            onMouseLeave={() => setHoveredItem(null)}
                         >
                             {item.icon}
                             {isSidebarOpen && item.itemName}
+                            {!isSidebarOpen && hoveredItem === index && (
+                                <span className="absolute left-[4.5rem] bg-gray-700 text-white p-1 rounded shadow-md">
+                                    {item.itemName}
+                                </span>
+                            )}
                         </li>
                     ))}
                 </ul>
@@ -128,7 +140,9 @@ const DashboardLayout = () => {
                 </div>
 
                 {/* Contenido del dashboard */}
-                <Outlet />
+                <div className="p-8">
+                    <Outlet />
+                </div>
             </div>
         </div>
     );

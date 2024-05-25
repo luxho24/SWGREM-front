@@ -1,4 +1,4 @@
-import { createContext, useState, useEffect } from "react";
+import { createContext, useEffect, useState } from "react";
 import clienteAxios from "../config/axios";
 
 const AuthContext = createContext();
@@ -24,16 +24,16 @@ const AuthProvider = ({ children }) => {
             };
 
             try {
-                // const { data } = await clienteAxios(
                 const { data } = await clienteAxios.get(
                     "/usuarios/perfil",
                     config
-                ); // Por defecto es clienteAxios.get(), pero se puede simplificar de la siguiente manera: clienteAxios()
+                );
                 setAuth(data);
-                // console.log(auth);
             } catch (error) {
-                console.log(error.response.data.msg);
-                setAuth({});
+                // console.log("Token inválido o expirado");
+                // console.log(error.response.data.msg);
+                localStorage.removeItem("token");
+                setAuth(null);
             }
 
             setCargando(false);
@@ -41,10 +41,6 @@ const AuthProvider = ({ children }) => {
 
         autenticarUsuario();
     }, []);
-
-    //     useEffect(() => {
-    //     console.log(auth); // Este console.log imprimirá auth cada vez que cambie
-    // }, [auth]);
 
     const cerrarSesion = () => {
         localStorage.removeItem("token");
