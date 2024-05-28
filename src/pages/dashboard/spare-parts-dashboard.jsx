@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
+import { FaPencilAlt, FaInfoCircle, FaTrash } from 'react-icons/fa';
 
 const SparePartsDashboard = () => {
-    const [repuesto, setRepuesto] = useState([]);
+    const [repuestos, setRepuestos] = useState([]);
     const [idRepuesto, setIdProducto] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
@@ -9,6 +10,7 @@ const SparePartsDashboard = () => {
     const [idMarca, setIdMarca] = useState('');
     const [modelosDisponibles, setModelosDisponibles] = useState([]);
     const [modeloSeleccionado, setModeloSeleccionado] = useState('');
+    const [repuestoSeleccionado, setRepuestoSeleccionado] = useState(null);
 
     const marcas = ['Samsung', 'Apple', 'Xiaomi', 'Honor'];
 
@@ -20,33 +22,36 @@ const SparePartsDashboard = () => {
     };
 
     const handleRegistrar = () => {
-        setRepuesto([...repuesto, { idProducto: idRepuesto, descripcion, precio, cantidad, idMarca }]);
+        setRepuestos([...repuestos, { idProducto: idRepuesto, descripcion, precio, cantidad, idMarca, modelo: modeloSeleccionado }]);
         setIdProducto('');
         setDescripcion('');
         setPrecio('');
         setCantidad('');
         setIdMarca('');
+        setModeloSeleccionado('');
     };
 
     const handleModificar = (index) => {
         const nuevaDescripcion = prompt('Ingrese la nueva descripción:');
         const nuevoPrecio = prompt('Ingrese el nuevo precio:');
         const nuevaCantidad = prompt('Ingrese la nueva cantidad:');
-        const nuevaIdMarca = prompt('Ingrese la nueva Marca::');
-        if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevaIdMarca) {
-            const repuestosModificados = [...repuesto];
+        const nuevaIdMarca = prompt('Ingrese la nueva Marca:');
+        const nuevoModelo = prompt('Ingrese el nuevo Modelo:');
+        if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevaIdMarca && nuevoModelo) {
+            const repuestosModificados = [...repuestos];
             repuestosModificados[index].descripcion = nuevaDescripcion;
             repuestosModificados[index].precio = nuevoPrecio;
             repuestosModificados[index].cantidad = nuevaCantidad;
             repuestosModificados[index].idMarca = nuevaIdMarca;
-            setRepuesto(repuestosModificados);
+            repuestosModificados[index].modelo = nuevoModelo;
+            setRepuestos(repuestosModificados);
         }
     };
 
     const handleEliminar = (index) => {
-        const nuevosRepuestos = [...repuesto];
+        const nuevosRepuestos = [...repuestos];
         nuevosRepuestos.splice(index, 1);
-        setRepuesto(nuevosRepuestos);
+        setRepuestos(nuevosRepuestos);
     };
 
     const handleChangeIdRepuesto = (e) => {
@@ -76,9 +81,13 @@ const SparePartsDashboard = () => {
         setModeloSeleccionado(value);
     };
 
-  return (
-    <div className="flex justify-center items-center h-screen">
-            <div className="bg-white rounded-lg shadow-lg p-8 w-full flex flex-col md:flex-row">
+    const handleMostrarInformacion = (repuesto) => {
+        setRepuestoSeleccionado(repuesto);
+    };
+
+    return (
+        <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
+            <div className="bg-gray-800 rounded-lg shadow-lg p-8 w-full flex flex-col md:flex-row">
                 <div className="mb-8 md:mb-0 md:w-1/2">
                     <h2 className="text-2xl font-bold mb-6">Repuesto</h2>
                     <div className="mb-4">
@@ -88,7 +97,7 @@ const SparePartsDashboard = () => {
                         <input
                             type="text"
                             id="idProducto"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             placeholder="Ingrese el ID del Repuesto"
                             value={idRepuesto}
                             onChange={handleChangeIdRepuesto}
@@ -101,7 +110,7 @@ const SparePartsDashboard = () => {
                         <input
                             type="text"
                             id="descripcion"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             placeholder="Ingrese la descripción"
                             value={descripcion}
                             onChange={(e) => setDescripcion(e.target.value)}
@@ -114,7 +123,7 @@ const SparePartsDashboard = () => {
                         <input
                             type="text"
                             id="precio"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             placeholder="Ingrese el precio"
                             value={precio}
                             onChange={handleChangePrecio}
@@ -127,7 +136,7 @@ const SparePartsDashboard = () => {
                         <input
                             type="text"
                             id="cantidad"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             placeholder="Ingrese la cantidad"
                             value={cantidad}
                             onChange={handleChangeCantidad}
@@ -139,7 +148,7 @@ const SparePartsDashboard = () => {
                         </label>
                         <select
                             id="idMarca"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             value={idMarca}
                             onChange={handleChangeIdMarca}
                         >
@@ -157,7 +166,7 @@ const SparePartsDashboard = () => {
                         </label>
                         <select
                             id="modelo"
-                            className="w-full border border-gray-300 rounded-md py-2 px-4"
+                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             value={modeloSeleccionado}
                             onChange={handleChangeModelo}
                         >
@@ -178,7 +187,7 @@ const SparePartsDashboard = () => {
                         </button>
                         <button
                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => setRepuesto([])}
+                            onClick={() => setRepuestos([])}
                         >
                             Eliminar Todos
                         </button>
@@ -186,25 +195,28 @@ const SparePartsDashboard = () => {
                 </div>
                 <div className="md:w-1/2 md:ml-8">
                     <h2 className="text-2xl font-bold mb-6">Repuestos Registrados</h2>
-                    {repuesto.length === 0 ? (
+                    {repuestos.length === 0 ? (
                         <p>No hay repuestos registrados</p>
                     ) : (
                         <ul>
-                            {repuesto.map((repuesto, index) => (
+                            {repuestos.map((repuesto, index) => (
                                 <li key={index} className="flex justify-between items-center mb-2">
-                                    <span>{repuesto.descripcion} - Precio: {repuesto.precio} - Cantidad: {repuesto.cantidad} - ID de la Marca: {repuesto.idMarca}</span>
+                                    <span>{repuesto.descripcion} - Precio: {repuesto.precio} - Cantidad: {repuesto.cantidad} - Marca: {repuesto.idMarca} - Modelo: {repuesto.modelo}</span>
                                     <div>
                                         <button
                                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
                                             onClick={() => handleModificar(index)}
-                                        >
-                                            Modificar
+                                        ><FaPencilAlt></FaPencilAlt>
                                         </button>
                                         <button
-                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded"
+                                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
                                             onClick={() => handleEliminar(index)}
-                                        >
-                                            Eliminar
+                                        ><FaTrash></FaTrash>
+                                        </button>
+                                        <button
+                                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
+                                            onClick={() => handleMostrarInformacion(repuesto)}
+                                        ><FaInfoCircle></FaInfoCircle>
                                         </button>
                                     </div>
                                 </li>
@@ -213,8 +225,27 @@ const SparePartsDashboard = () => {
                     )}
                 </div>
             </div>
+            {repuestoSeleccionado && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                    <div className="bg-gray-800 p-6 rounded-lg shadow-lg text-white">
+                        <h3 className="text-xl font-bold mb-4">Detalles del Repuesto</h3>
+                        <p><strong>ID del Repuesto:</strong> {repuestoSeleccionado.idProducto}</p>
+                        <p><strong>Descripción:</strong> {repuestoSeleccionado.descripcion}</p>
+                        <p><strong>Precio:</strong> {repuestoSeleccionado.precio}</p>
+                        <p><strong>Cantidad:</strong> {repuestoSeleccionado.cantidad}</p>
+                        <p><strong>Marca:</strong> {repuestoSeleccionado.idMarca}</p>
+                        <p><strong>Modelo:</strong> {repuestoSeleccionado.modelo}</p>
+                        <button
+                            className="mt-4 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                            onClick={() => setRepuestoSeleccionado(null)}
+                        >
+                            Cerrar
+                        </button>
+                    </div>
+                </div>
+            )}
         </div>
-  )
+    );
 }
 
-export default SparePartsDashboard
+export default SparePartsDashboard;
