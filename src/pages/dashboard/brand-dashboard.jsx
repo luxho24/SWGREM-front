@@ -14,46 +14,19 @@ const BrandDashboard = () => {
 
     useEffect(() => {
         if (marca) {
-            setModelosDisponibles(modelosPorMarca[marca]);
+            setModelosDisponibles(modelosPorMarca[marca] || []);
         } else {
             setModelosDisponibles([]);
         }
     }, [marca]);
 
     const modelosPorMarca = {
-        Xiaomi: [
-            "Xiaomi 13 Pro", "Xiaomi 13", "Xiaomi 12T Pro", "Xiaomi 12T",
-            "Xiaomi 12 Lite", "Redmi Note 12 Pro Speed Edition",
-            "Redmi Note 12 Pro", "Redmi Note 12", "Redmi Note 12 5G", "Redmi 12C"
-        ],
-        Samsung: [
-            "Samsung Galaxy S23 Ultra", "Samsung Galaxy S23+",
-            "Samsung Galaxy S23", "Samsung Galaxy Z Fold5",
-            "Samsung Galaxy Z Flip5", "Samsung Galaxy S22 Ultra",
-            "Samsung Galaxy S22+", "Samsung Galaxy S22",
-            "Samsung Galaxy A34", "Samsung Galaxy A54"
-        ],
-        Motorola: [
-            "Motorola Edge 30 Ultra", "Motorola Edge 30 Fusion",
-            "Motorola Edge 30", "Motorola G200", "Motorola G71",
-            "Motorola G51", "Motorola G41", "Motorola G31",
-            "Motorola G22", "Motorola E13"
-        ],
-        Honor: [
-            "HONOR Magic5 Pro", "HONOR Magic5", "HONOR 80 Pro", "HONOR 80",
-            "HONOR X9a", "HONOR 70", "HONOR X8", "HONOR 50",
-            "HONOR X7", "HONOR X6"
-        ],
-        Oppo: [
-            "OPPO Find X6 Pro", "OPPO Find X6", "OPPO Reno9 Pro+",
-            "OPPO Reno9 Pro", "OPPO Reno9", "OPPO A98", "OPPO A78",
-            "OPPO A77s", "OPPO A57", "OPPO A17"
-        ],
-        Apple: [
-            "iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14",
-            "iPhone 13 mini", "iPhone 13", "iPhone 12", "iPhone 11",
-            "iPhone SE (3ra generación)", "iPhone SE (2da generación)"
-        ]
+        Xiaomi: ["Xiaomi 13 Pro", "Xiaomi 13", "Xiaomi 12T Pro", "Xiaomi 12T", "Xiaomi 12 Lite", "Redmi Note 12 Pro Speed Edition", "Redmi Note 12 Pro", "Redmi Note 12", "Redmi Note 12 5G", "Redmi 12C"],
+        Samsung: ["Samsung Galaxy S23 Ultra", "Samsung Galaxy S23+", "Samsung Galaxy S23", "Samsung Galaxy Z Fold5", "Samsung Galaxy Z Flip5", "Samsung Galaxy S22 Ultra", "Samsung Galaxy S22+", "Samsung Galaxy S22", "Samsung Galaxy A34", "Samsung Galaxy A54"],
+        Motorola: ["Motorola Edge 30 Ultra", "Motorola Edge 30 Fusion", "Motorola Edge 30", "Motorola G200", "Motorola G71", "Motorola G51", "Motorola G41", "Motorola G31", "Motorola G22", "Motorola E13"],
+        Honor: ["HONOR Magic5 Pro", "HONOR Magic5", "HONOR 80 Pro", "HONOR 80", "HONOR X9a", "HONOR 70", "HONOR X8", "HONOR 50", "HONOR X7", "HONOR X6"],
+        Oppo: ["OPPO Find X6 Pro", "OPPO Find X6", "OPPO Reno9 Pro+", "OPPO Reno9 Pro", "OPPO Reno9", "OPPO A98", "OPPO A78", "OPPO A77s", "OPPO A57", "OPPO A17"],
+        Apple: ["iPhone 14 Pro Max", "iPhone 14 Pro", "iPhone 14 Plus", "iPhone 14", "iPhone 13 mini", "iPhone 13", "iPhone 12", "iPhone 11", "iPhone SE (3ra generación)", "iPhone SE (2da generación)"]
     };
 
     const validateInput = () => {
@@ -126,12 +99,7 @@ const BrandDashboard = () => {
                         <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
                         <input list="marcas" type="text" id="marca" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese la marca" value={marca} onChange={(e) => setMarca(e.target.value)} />
                         <datalist id="marcas">
-                            <option value="Apple" />
-                            <option value="Samsung" />
-                            <option value="Xiaomi" />
-                            <option value="Motorola" />
-                            <option value="Honor" />
-                            <option value="Oppo" />
+                            {Object.keys(modelosPorMarca).map(marca => <option key={marca} value={marca} />)}
                         </datalist>
                     </div>
                     <div className="mb-4">
