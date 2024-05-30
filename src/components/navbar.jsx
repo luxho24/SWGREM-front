@@ -10,7 +10,7 @@ const NavBar = () => {
         navigate(path);
     };
     return (
-        <nav className="bg-gray-800 p-4 fixed w-full">
+        <nav className="bg-gray-800 p-4 fixed w-full z-50">
             <div className="w-[90%] flex justify-between items-center m-auto">
                 <NavLink to={"/"} className="flex items-center">
                     <svg
