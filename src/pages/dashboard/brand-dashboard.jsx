@@ -43,7 +43,7 @@ const BrandDashboard = () => {
     const handleRegistrar = () => {
         if (validateInput()) {
             const nuevoEquipo = { marca, modelo, descripcion };
-            axios.post('http://localhost:3000/marcas', nuevoEquipo)
+            axios.post('http://localhost:3000/api/marcas', nuevoEquipo)
                 .then(response => {
                     setEquipos([...equipos, nuevoEquipo]);
                     setMarca('');
