@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaPencilAlt, FaInfoCircle, FaTrash } from 'react-icons/fa';
+import axios from 'axios';
+
 
 const BrandDashboard = () => {
     const [equipos, setEquipos] = useState([]);
@@ -40,10 +42,17 @@ const BrandDashboard = () => {
 
     const handleRegistrar = () => {
         if (validateInput()) {
-            setEquipos([...equipos, { marca, modelo, descripcion }]);
-            setMarca('');
-            setModelo('');
-            setDescripcion('');
+            const nuevoEquipo = { marca, modelo, descripcion };
+            axios.post('http://localhost:3000/marcas', nuevoEquipo)
+                .then(response => {
+                    setEquipos([...equipos, nuevoEquipo]);
+                    setMarca('');
+                    setModelo('');
+                    setDescripcion('');
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                });
         }
     };
 
