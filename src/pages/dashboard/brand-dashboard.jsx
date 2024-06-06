@@ -20,6 +20,30 @@ const BrandDashboard = () => {
         }
     }, [marca]);
 
+
+    //const [nameMar, setNameMar] = useState("");
+	//const [ModelMar, setModelMar] = useState("");
+
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
+		e.preventDefault();
+
+		if ([nameMar, ModelMar].includes("")) {
+			console.log("Todos los campos son obligatorios");
+			return;
+		}
+
+		try {
+			await clienteAxios.post("/marca/registrar", {
+				nameMar,
+				ModelMar,
+			});
+		} catch (error) {
+			console.error("Error al iniciar sesión:", error);
+		}
+	};
+
     const modelosPorMarca = {
         Xiaomi: ["Xiaomi 13 Pro", "Xiaomi 13", "Xiaomi 12T Pro", "Xiaomi 12T", "Xiaomi 12 Lite", "Redmi Note 12 Pro Speed Edition", "Redmi Note 12 Pro", "Redmi Note 12", "Redmi Note 12 5G", "Redmi 12C"],
         Samsung: ["Samsung Galaxy S23 Ultra", "Samsung Galaxy S23+", "Samsung Galaxy S23", "Samsung Galaxy Z Fold5", "Samsung Galaxy Z Flip5", "Samsung Galaxy S22 Ultra", "Samsung Galaxy S22+", "Samsung Galaxy S22", "Samsung Galaxy A34", "Samsung Galaxy A54"],
@@ -92,7 +116,7 @@ const BrandDashboard = () => {
     return (
         <div className="flex justify-center items-start h-screen bg-gray-900 text-white">
             <div className="flex w-full max-w-6xl">
-                <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1 mr-4">
+                <form onSubmit={handleSubmit()} className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1 mr-4">
                     <h2 className="text-2xl font-bold mb-6">{editIndex === -1 ? "Registrar Equipo" : "Modificar Equipo"}</h2>
                     {error && <p className="text-red-400">{error}</p>}
                     <div className="mb-4">
@@ -138,7 +162,7 @@ const BrandDashboard = () => {
                             Eliminar Todos
                         </button>
                     </div>
-                </div>
+                </form>
                 {view === 'lista' && (
                     <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1">
                         <h2 className="text-2xl font-bold mb-6">Equipos Registrados</h2>
