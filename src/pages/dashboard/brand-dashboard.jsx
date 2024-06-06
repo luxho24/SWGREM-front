@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { FaPencilAlt, FaInfoCircle, FaTrash } from 'react-icons/fa';
-import axios from 'axios';
-
 
 const BrandDashboard = () => {
     const [equipos, setEquipos] = useState([]);
@@ -43,14 +41,21 @@ const BrandDashboard = () => {
     const handleRegistrar = () => {
         if (validateInput()) {
             const nuevoEquipo = { marca, modelo, descripcion };
-            axios.post('http://localhost:3000/api/marcas', nuevoEquipo)
-                .then(response => {
-                    setEquipos([...equipos, nuevoEquipo]);
+            fetch('/api/marcas', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(nuevoEquipo),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    setEquipos([...equipos, data]);
                     setMarca('');
                     setModelo('');
                     setDescripcion('');
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.error('Error:', error);
                 });
         }
@@ -65,10 +70,24 @@ const BrandDashboard = () => {
 
     const handleGuardarModificacion = () => {
         if (validateInput()) {
-            const equiposModificados = [...equipos];
-            equiposModificados[editIndex] = { marca, modelo, descripcion };
-            setEquipos(equiposModificados);
-            cancelarEdicion();
+            const equipoModificado = { marca, modelo, descripcion };
+            fetch(`/api/equipos/${equipos[editIndex]._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(equipoModificado),
+            })
+                .then(response => response.json())
+                .then(data => {
+                    const equiposModificados = [...equipos];
+                    equiposModificados[editIndex] = data;
+                    setEquipos(equiposModificados);
+                    cancelarEdicion();
+                })
+                .catch((error) => {
+                    console.error('Error:', error);
+                });
         }
     };
 
