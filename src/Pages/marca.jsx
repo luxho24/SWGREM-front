@@ -12,10 +12,6 @@ const Marca = () => {
 		e.preventDefault();
 
 		if ([nameMar, ModelMar].includes("")) {
-			// setAlerta({
-			//     msg: "Todos los campos son obligatorios",
-			//     error: true,
-			// });
 			console.log("Todos los campos son obligatorios");
 			return;
 		}
