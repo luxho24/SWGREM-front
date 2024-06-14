@@ -86,11 +86,11 @@ const SparePartsDashboard = () => {
     };
 
     return (
-        <div className="flex justify-center items-center h-screen bg-gray-900 text-white">
-            <div className="bg-gray-800 rounded-lg shadow-lg p-8 w-full flex flex-col md:flex-row">
-                <div className="mb-8 md:mb-0 md:w-1/2">
-                    <h2 className="text-2xl font-bold mb-6">Repuesto</h2>
-                    <div className="mb-4">
+        <div className="flex flex-col justify-center items-center min-h-screen bg-gray-900 text-white">
+            <div className="bg-gray-800 rounded-lg shadow-lg p-8 w-full max-w-4xl">
+                <h2 className="text-2xl font-bold mb-6 text-center">Registrar Repuesto</h2>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                    <div>
                         <label htmlFor="idProducto" className="block font-medium mb-2">
                             ID del Repuesto
                         </label>
@@ -103,7 +103,7 @@ const SparePartsDashboard = () => {
                             onChange={handleChangeIdRepuesto}
                         />
                     </div>
-                    <div className="mb-4">
+                    <div>
                         <label htmlFor="descripcion" className="block font-medium mb-2">
                             Descripción
                         </label>
@@ -116,7 +116,7 @@ const SparePartsDashboard = () => {
                             onChange={(e) => setDescripcion(e.target.value)}
                         />
                     </div>
-                    <div className="mb-4">
+                    <div>
                         <label htmlFor="precio" className="block font-medium mb-2">
                             Precio
                         </label>
@@ -129,7 +129,7 @@ const SparePartsDashboard = () => {
                             onChange={handleChangePrecio}
                         />
                     </div>
-                    <div className="mb-4">
+                    <div>
                         <label htmlFor="cantidad" className="block font-medium mb-2">
                             Cantidad
                         </label>
@@ -142,7 +142,7 @@ const SparePartsDashboard = () => {
                             onChange={handleChangeCantidad}
                         />
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label htmlFor="idMarca" className="block font-medium mb-2">
                             Marca
                         </label>
@@ -160,7 +160,7 @@ const SparePartsDashboard = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="mb-6">
+                    <div>
                         <label htmlFor="modelo" className="block font-medium mb-2">
                             Modelo
                         </label>
@@ -178,52 +178,69 @@ const SparePartsDashboard = () => {
                             ))}
                         </select>
                     </div>
-                    <div className="flex justify-between">
-                        <button
-                            className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={handleRegistrar}
-                        >
-                            Registrar
-                        </button>
-                        <button
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-                            onClick={() => setRepuestos([])}
-                        >
-                            Eliminar Todos
-                        </button>
-                    </div>
                 </div>
-                <div className="md:w-1/2 md:ml-8">
-                    <h2 className="text-2xl font-bold mb-6">Repuestos Registrados</h2>
-                    {repuestos.length === 0 ? (
-                        <p>No hay repuestos registrados</p>
-                    ) : (
-                        <ul>
+                <div className="flex justify-between mb-8">
+                    <button
+                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={handleRegistrar}
+                    >
+                        Registrar
+                    </button>
+                    <button
+                        className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+                        onClick={() => setRepuestos([])}
+                    >
+                        Eliminar Todos
+                    </button>
+                </div>
+                <h2 className="text-2xl font-bold mb-6 text-center">Repuestos Registrados</h2>
+                {repuestos.length === 0 ? (
+                    <p className="text-center">No hay repuestos registrados</p>
+                ) : (
+                    <table className="w-full bg-gray-700 text-white rounded-md overflow-hidden">
+                        <thead>
+                            <tr className="bg-gray-800">
+                                <th className="py-2 px-4">Descripción</th>
+                                <th className="py-2 px-4">Precio</th>
+                                <th className="py-2 px-4">Cantidad</th>
+                                <th className="py-2 px-4">Marca</th>
+                                <th className="py-2 px-4">Modelo</th>
+                                <th className="py-2 px-4">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
                             {repuestos.map((repuesto, index) => (
-                                <li key={index} className="flex justify-between items-center mb-2">
-                                    <span>{repuesto.descripcion} - Precio: {repuesto.precio} - Cantidad: {repuesto.cantidad} - Marca: {repuesto.idMarca} - Modelo: {repuesto.modelo}</span>
-                                    <div>
+                                <tr key={index} className="border-b border-gray-600">
+                                    <td className="py-2 px-4">{repuesto.descripcion}</td>
+                                    <td className="py-2 px-4">{repuesto.precio}</td>
+                                    <td className="py-2 px-4">{repuesto.cantidad}</td>
+                                    <td className="py-2 px-4">{repuesto.idMarca}</td>
+                                    <td className="py-2 px-4">{repuesto.modelo}</td>
+                                    <td className="py-2 px-4 flex justify-center">
                                         <button
                                             className="bg-green-500 hover:bg-green-700 text-white font-bold py-1 px-2 rounded mr-2"
                                             onClick={() => handleModificar(index)}
-                                        ><FaPencilAlt></FaPencilAlt>
+                                        >
+                                            <FaPencilAlt />
                                         </button>
                                         <button
                                             className="bg-red-500 hover:bg-red-700 text-white font-bold py-1 px-2 rounded mr-2"
                                             onClick={() => handleEliminar(index)}
-                                        ><FaTrash></FaTrash>
+                                        >
+                                            <FaTrash />
                                         </button>
                                         <button
                                             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-1 px-2 rounded"
                                             onClick={() => handleMostrarInformacion(repuesto)}
-                                        ><FaInfoCircle></FaInfoCircle>
+                                        >
+                                            <FaInfoCircle />
                                         </button>
-                                    </div>
-                                </li>
+                                    </td>
+                                </tr>
                             ))}
-                        </ul>
-                    )}
-                </div>
+                        </tbody>
+                    </table>
+                )}
             </div>
             {repuestoSeleccionado && (
                 <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
