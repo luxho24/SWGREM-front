@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaPencilAlt, FaInfoCircle, FaTrash } from 'react-icons/fa';
 
 const SparePartsDashboard = () => {
     const [repuestos, setRepuestos] = useState([]);
-    const [idRepuesto, setIdProducto] = useState('');
+    const [idProducto, setIdProducto] = useState('');
     const [descripcion, setDescripcion] = useState('');
     const [precio, setPrecio] = useState('');
     const [cantidad, setCantidad] = useState('');
@@ -21,37 +21,97 @@ const SparePartsDashboard = () => {
         Honor: ['Honor 50', 'Honor 30', 'Honor 20']
     };
 
-    const handleRegistrar = () => {
-        setRepuestos([...repuestos, { idProducto: idRepuesto, descripcion, precio, cantidad, idMarca, modelo: modeloSeleccionado }]);
-        setIdProducto('');
-        setDescripcion('');
-        setPrecio('');
-        setCantidad('');
-        setIdMarca('');
-        setModeloSeleccionado('');
-    };
+    useEffect(() => {
+        const fetchRepuestos = async () => {
+            try {
+                const response = await fetch('/api/repuestos');
+                const data = await response.json();
+                setRepuestos(data);
+            } catch (error) {
+                console.error('Error fetching data:', error);
+            }
+        };
+        fetchRepuestos();
+    }, []);
 
-    const handleModificar = (index) => {
-        const nuevaDescripcion = prompt('Ingrese la nueva descripción:');
-        const nuevoPrecio = prompt('Ingrese el nuevo precio:');
-        const nuevaCantidad = prompt('Ingrese la nueva cantidad:');
-        const nuevaIdMarca = prompt('Ingrese la nueva Marca:');
-        const nuevoModelo = prompt('Ingrese el nuevo Modelo:');
+    const handleRegistrar = async () => {
+        try {
+            const newRepuesto = { 
+                idProducto, 
+                descripcion, 
+                precio, 
+                cantidad, 
+                idMarca, 
+                modelo: modeloSeleccionado 
+            };
+    
+            const response = await fetch('http://localhost:3000/api/repuestos', { // Ajusta el puerto y la URL si es necesario
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(newRepuesto)
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            setRepuestos([...repuestos, data]);
+            
+            // Limpiar los campos después de registrar
+            setIdProducto('');
+            setDescripcion('');
+            setPrecio('');
+            setCantidad('');
+            setIdMarca('');
+            setModeloSeleccionado('');
+        } catch (error) {
+            console.error('Error registering repuesto:', error);
+        }
+    };    
+
+    const handleModificar = async (index) => {
+        const repuesto = repuestos[index];
+        const nuevaDescripcion = prompt('Ingrese la nueva descripción:', repuesto.descripcion);
+        const nuevoPrecio = prompt('Ingrese el nuevo precio:', repuesto.precio);
+        const nuevaCantidad = prompt('Ingrese la nueva cantidad:', repuesto.cantidad);
+        const nuevaIdMarca = prompt('Ingrese la nueva Marca:', repuesto.idMarca);
+        const nuevoModelo = prompt('Ingrese el nuevo Modelo:', repuesto.modelo);
+
         if (nuevaDescripcion && nuevoPrecio && nuevaCantidad && nuevaIdMarca && nuevoModelo) {
-            const repuestosModificados = [...repuestos];
-            repuestosModificados[index].descripcion = nuevaDescripcion;
-            repuestosModificados[index].precio = nuevoPrecio;
-            repuestosModificados[index].cantidad = nuevaCantidad;
-            repuestosModificados[index].idMarca = nuevaIdMarca;
-            repuestosModificados[index].modelo = nuevoModelo;
-            setRepuestos(repuestosModificados);
+            try {
+                const updatedRepuesto = { ...repuesto, descripcion: nuevaDescripcion, precio: nuevoPrecio, cantidad: nuevaCantidad, idMarca: nuevaIdMarca, modelo: nuevoModelo };
+                const response = await fetch(`/api/repuestos/${repuesto.idProducto}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updatedRepuesto)
+                });
+                const data = await response.json();
+                const repuestosModificados = [...repuestos];
+                repuestosModificados[index] = data;
+                setRepuestos(repuestosModificados);
+            } catch (error) {
+                console.error('Error updating repuesto:', error);
+            }
         }
     };
 
-    const handleEliminar = (index) => {
-        const nuevosRepuestos = [...repuestos];
-        nuevosRepuestos.splice(index, 1);
-        setRepuestos(nuevosRepuestos);
+    const handleEliminar = async (index) => {
+        const repuesto = repuestos[index];
+        try {
+            await fetch(`/api/repuestos/${repuesto.idProducto}`, {
+                method: 'DELETE'
+            });
+            const nuevosRepuestos = [...repuestos];
+            nuevosRepuestos.splice(index, 1);
+            setRepuestos(nuevosRepuestos);
+        } catch (error) {
+            console.error('Error deleting repuesto:', error);
+        }
     };
 
     const handleChangeIdRepuesto = (e) => {
@@ -99,7 +159,7 @@ const SparePartsDashboard = () => {
                             id="idProducto"
                             className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700 text-white"
                             placeholder="Ingrese el ID del Repuesto"
-                            value={idRepuesto}
+                            value={idProducto}
                             onChange={handleChangeIdRepuesto}
                         />
                     </div>
