@@ -41,25 +41,30 @@ const BrandDashboard = () => {
     const handleRegistrar = () => {
         if (validateInput()) {
             const nuevoEquipo = { marca, modelo, descripcion };
-            fetch('/api/marcas', {
+            fetch('http://localhost:3000/api/marcas', { // Cambia esto a la URL correcta
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(nuevoEquipo),
             })
-                .then(response => response.json())
-                .then(data => {
-                    setEquipos([...equipos, data]);
-                    setMarca('');
-                    setModelo('');
-                    setDescripcion('');
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                setEquipos([...equipos, data]);
+                setMarca('');
+                setModelo('');
+                setDescripcion('');
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
-    };
+    };    
 
     const handleModificar = (index) => {
         setEditIndex(index);
