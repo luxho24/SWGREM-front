@@ -10,7 +10,6 @@ const BrandDashboard = () => {
     const [detallesEquipo, setDetallesEquipo] = useState(null);
     const [editIndex, setEditIndex] = useState(-1);
     const [error, setError] = useState('');
-    const [view, setView] = useState('lista');
 
     useEffect(() => {
         if (marca) {
@@ -64,7 +63,7 @@ const BrandDashboard = () => {
                 console.error('Error:', error);
             });
         }
-    };    
+    };
 
     const handleModificar = (index) => {
         setEditIndex(index);
@@ -76,23 +75,23 @@ const BrandDashboard = () => {
     const handleGuardarModificacion = () => {
         if (validateInput()) {
             const equipoModificado = { marca, modelo, descripcion };
-            fetch(`/api/equipos/${equipos[editIndex]._id}`, {
+            fetch(`http://localhost:3000/api/marcas/${equipos[editIndex]._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(equipoModificado),
             })
-                .then(response => response.json())
-                .then(data => {
-                    const equiposModificados = [...equipos];
-                    equiposModificados[editIndex] = data;
-                    setEquipos(equiposModificados);
-                    cancelarEdicion();
-                })
-                .catch((error) => {
-                    console.error('Error:', error);
-                });
+            .then(response => response.json())
+            .then(data => {
+                const equiposModificados = [...equipos];
+                equiposModificados[editIndex] = data;
+                setEquipos(equiposModificados);
+                cancelarEdicion();
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
         }
     };
 
@@ -104,120 +103,99 @@ const BrandDashboard = () => {
     };
 
     const handleEliminar = (index) => {
-        const equiposActualizados = equipos.filter((_, i) => i !== index);
-        setEquipos(equiposActualizados);
-    };
-
-    const handleEliminarTodos = () => {
-        setEquipos([]);
-    };
-
-    const handleVerDetalles = (equipo) => {
-        setDetallesEquipo(equipo);
-        setView('detalles');
-    };
-
-    const handleVolver = () => {
-        setView('lista');
-        setDetallesEquipo(null);
+        const equipo = equipos[index];
+        fetch(`http://localhost:3000/api/marcas/${equipo._id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .then(response => response.json())
+        .then(() => {
+            const equiposActualizados = equipos.filter((_, i) => i !== index);
+            setEquipos(equiposActualizados);
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
     };
 
     return (
-        <div className="flex justify-center items-start h-screen bg-gray-900 text-white">
-            <div className="flex w-full max-w-6xl">
-                <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1 mr-4">
-                    <h2 className="text-2xl font-bold mb-6">{editIndex === -1 ? "Registrar Equipo" : "Modificar Equipo"}</h2>
-                    {error && <p className="text-red-400">{error}</p>}
-                    <div className="mb-4">
-                        <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
-                        <input list="marcas" type="text" id="marca" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese la marca" value={marca} onChange={(e) => setMarca(e.target.value)} />
-                        <datalist id="marcas">
-                            {Object.keys(modelosPorMarca).map(marca => <option key={marca} value={marca} />)}
-                        </datalist>
-                    </div>
-                    <div className="mb-4">
-                        <label htmlFor="modelo" className="block font-medium mb-2">Modelo</label>
-                        <input list="modelos" type="text" id="modelo" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese el modelo" value={modelo} onChange={(e) => setModelo(e.target.value)} />
-                        <datalist id="modelos">
-                            {modelosDisponibles.map(modelo => <option key={modelo} value={modelo} />)}
-                        </datalist>
-                    </div>
-                    <div className="mb-6">
-                        <label htmlFor="descripcion" className="block font-medium mb-2">Descripción</label>
-                        <textarea
-                            id="descripcion"
-                            className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700"
-                            placeholder="Ingrese una descripción del equipo"
-                            value={descripcion}
-                            onChange={(e) => setDescripcion(e.target.value)}
-                        />
-                    </div>
-                    <div className="flex justify-end space-x-4">
-                        {editIndex === -1 ? (
-                            <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded" onClick={handleRegistrar}>
-                                Registrar
-                            </button>
-                        ) : (
-                            <>
-                                <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={handleGuardarModificacion}>
-                                    Guardar
-                                </button>
-                                <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={cancelarEdicion}>
-                                    Cancelar
-                                </button>
-                            </>
-                        )}
-                        <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-2 px-4 rounded" onClick={handleEliminarTodos}>
-                            Eliminar Todos
+        <div className="flex flex-col items-center h-screen bg-gray-900 text-white p-8">
+            <h2 className="text-2xl font-bold mb-6">{editIndex === -1 ? "Registrar Equipo" : "Modificar Equipo"}</h2>
+            {error && <p className="text-red-400">{error}</p>}
+            <div className="mb-4 w-full max-w-md">
+                <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
+                <input list="marcas" type="text" id="marca" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese la marca" value={marca} onChange={(e) => setMarca(e.target.value)} />
+                <datalist id="marcas">
+                    {Object.keys(modelosPorMarca).map(marca => <option key={marca} value={marca} />)}
+                </datalist>
+            </div>
+            <div className="mb-4 w-full max-w-md">
+                <label htmlFor="modelo" className="block font-medium mb-2">Modelo</label>
+                <input list="modelos" type="text" id="modelo" className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700" placeholder="Ingrese el modelo" value={modelo} onChange={(e) => setModelo(e.target.value)} />
+                <datalist id="modelos">
+                    {modelosDisponibles.map(modelo => <option key={modelo} value={modelo} />)}
+                </datalist>
+            </div>
+            <div className="mb-6 w-full max-w-md">
+                <label htmlFor="descripcion" className="block font-medium mb-2">Descripción</label>
+                <textarea
+                    id="descripcion"
+                    className="w-full border border-gray-600 rounded-md py-2 px-4 bg-gray-700"
+                    placeholder="Ingrese una descripción del equipo"
+                    value={descripcion}
+                    onChange={(e) => setDescripcion(e.target.value)}
+                />
+            </div>
+            <div className="flex justify-end space-x-4 mb-6">
+                {editIndex === -1 ? (
+                    <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded" onClick={handleRegistrar}>
+                        Registrar
+                    </button>
+                ) : (
+                    <>
+                        <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-2 px-4 rounded" onClick={handleGuardarModificacion}>
+                            Guardar
                         </button>
-                    </div>
-                </div>
-                {view === 'lista' && (
-                    <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1">
-                        <h2 className="text-2xl font-bold mb-6">Equipos Registrados</h2>
-                        {equipos.length === 0 ? (
-                            <p>No hay equipos registrados</p>
-                        ) : (
-                            <ul>
-                                {equipos.map((equipo, index) => (
-                                    <li key={index} className="flex justify-between items-center mb-2">
-                                        <span>{equipo.marca} - {equipo.modelo}</span>
-                                        <div>
-                                            <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleModificar(index)}>
-                                                <FaPencilAlt />
-                                            </button>
-                                            <button className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleVerDetalles(equipo)}>
-                                                <FaInfoCircle />
-                                            </button>
-                                            <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-1 px-2 rounded" onClick={() => handleEliminar(index)}>
-                                                <FaTrash />
-                                            </button>
-                                        </div>
-                                    </li>
-                                ))}
-                            </ul>
-                        )}
-                    </div>
-                )}
-                {view === 'detalles' && detallesEquipo && (
-                    <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1">
-                        <button className="mb-4 bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={handleVolver}>
-                            Atrás
+                        <button className="bg-gray-600 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded" onClick={cancelarEdicion}>
+                            Cancelar
                         </button>
-                        <h3 className="font-bold text-lg mb-4">Detalles del Equipo</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                            <div>
-                                <p><strong>Marca:</strong> {detallesEquipo.marca}</p>
-                                <p><strong>Modelo:</strong> {detallesEquipo.modelo}</p>
-                            </div>
-                            <div className="col-span-full">
-                                <p><strong>Descripción:</strong></p>
-                                <p>{detallesEquipo.descripcion}</p>
-                            </div>
-                        </div>
-                    </div>
+                    </>
                 )}
             </div>
+            <h2 className="text-2xl font-bold mb-6">Equipos Registrados</h2>
+            {equipos.length === 0 ? (
+                <p>No hay equipos registrados</p>
+            ) : (
+                <table className="table-auto w-full max-w-4xl">
+                    <thead>
+                        <tr>
+                            <th className="px-4 py-2">Marca</th>
+                            <th className="px-4 py-2">Modelo</th>
+                            <th className="px-4 py-2">Descripción</th>
+                            <th className="px-4 py-2">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {equipos.map((equipo, index) => (
+                            <tr key={index}>
+                                <td className="border px-4 py-2">{equipo.marca}</td>
+                                <td className="border px-4 py-2">{equipo.modelo}</td>
+                                <td className="border px-4 py-2">{equipo.descripcion}</td>
+                                <td className="border px-4 py-2">
+                                    <button className="bg-green-700 hover:bg-green-800 text-white font-bold py-1 px-2 rounded mr-2" onClick={() => handleModificar(index)}>
+                                        <FaPencilAlt />
+                                    </button>
+                                    <button className="bg-red-700 hover:bg-red-800 text-white font-bold py-1 px-2 rounded" onClick={() => handleEliminar(index)}>
+                                        <FaTrash />
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            )}
         </div>
     );
 };
