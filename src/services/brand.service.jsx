@@ -20,9 +20,20 @@ export const listarMarcas = async () => {
     }
 };
 
+export const modificarMarca = async (id, marca, modelo) => {
+    try {
+        const { data } = await clienteAxios.put(`/Marcas/ModificarId/${id}`, { Marca: marca, Modelo: modelo });
+        return data;
+    } catch (error) {
+        console.error('Error al modificar la marca', error);
+        throw new Error('Error al modificar la marca');
+    }
+};
+
+
 export const eliminarMarca = async (id) => {
     try {
-        const { data } = await clienteAxios.delete(`/Marcas/${id}`);
+        const { data } = await clienteAxios.delete(`/Marcas/Eliminar/${id}`);
         return data;
     } catch (error) {
         console.error('Error al eliminar la marca', error);
