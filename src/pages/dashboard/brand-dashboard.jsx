@@ -73,17 +73,17 @@ const BrandDashboard = () => {
     };
 
     return (
-        <div className="flex justify-center items-start h-screen bg-gray-900 text-white">
-            <div className="flex w-full max-w-6xl">
-                <form onSubmit={handleSubmit} className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1 mr-4">
+        <div className="flex justify-center items-start h-screen bg-white text-black">
+            <div className="flex w-full max-w-6xl mt-8"> {/* Añadido margin-top */}
+                <form onSubmit={handleSubmit} className="bg-white border rounded-lg shadow-lg p-8 flex-1 mr-4">
                     <h2 className="text-2xl font-bold mb-6">{isEditing ? 'Modificar Marca' : 'Registrar Marca'}</h2>
-                    {error && <p className="text-red-400">{error}</p>}
+                    {error && <p className="text-red-500">{error}</p>}
                     <div className="mb-4">
                         <label htmlFor="marca" className="block font-medium mb-2">Marca</label>
                         <input
                             type="text"
                             id="marca"
-                            className={`w-full border rounded-md py-2 px-4 bg-gray-700 ${campoVacio === 'marca' && 'border-red-500'}`}
+                            className={`w-full border rounded-md py-2 px-4 ${campoVacio === 'marca' && 'border-red-500'}`}
                             placeholder="Ingrese la marca"
                             value={marca}
                             onChange={(e) => setMarca(e.target.value)}
@@ -94,34 +94,34 @@ const BrandDashboard = () => {
                         <input
                             type="text"
                             id="modelo"
-                            className={`w-full border rounded-md py-2 px-4 bg-gray-700 ${campoVacio === 'modelo' && 'border-red-500'}`}
+                            className={`w-full border rounded-md py-2 px-4 ${campoVacio === 'modelo' && 'border-red-500'}`}
                             placeholder="Ingrese el modelo"
                             value={modelo}
                             onChange={(e) => setModelo(e.target.value)}
                         />
                     </div>
-                    <button type="submit" className="bg-blue-700 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded">
+                    <button type="submit" className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                         {isEditing ? 'Modificar Marca' : 'Registrar Marca'}
                     </button>
                 </form>
-                <div className="bg-gray-800 rounded-lg shadow-lg p-8 flex-1">
+                <div className="bg-white border rounded-lg shadow-lg p-8 flex-1 mt-8"> {/* Añadido margin-top */}
                     <h2 className="text-2xl font-bold mb-6">Lista de Marcas</h2>
-                    {error && <p className="text-red-400">{error}</p>}
+                    {error && <p className="text-red-500">{error}</p>}
                     <table className="table-fixed w-full">
-                        <thead>
+                        <thead className="bg-gray-200">
                             <tr>
-                                <th className="w-1/2">Marca</th>
-                                <th className="w-1/2">Modelo</th>
-                                <th className="w-1/4">Acciones</th>
+                                <th className="w-1/2 px-4 py-2 text-left">Marca</th>
+                                <th className="w-1/2 px-4 py-2 text-left">Modelo</th>
+                                <th className="w-1/4 px-4 py-2 text-left">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             {modelos.length > 0 ? (
                                 modelos.map((modelo, index) => (
                                     <tr key={index}>
-                                        <td>{modelo.Marca}</td>
-                                        <td>{modelo.Modelo}</td>
-                                        <td>
+                                        <td className="border px-4 py-2">{modelo.Marca}</td>
+                                        <td className="border px-4 py-2">{modelo.Modelo}</td>
+                                        <td className="border px-4 py-2">
                                             <button
                                                 onClick={() => handleEdit(index)}
                                                 className="text-blue-500 hover:text-blue-700 mr-2"
