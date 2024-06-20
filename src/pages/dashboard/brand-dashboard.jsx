@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { FaTrash, FaEdit } from 'react-icons/fa';
-import { registrarMarca, listarMarcas, eliminarMarca, modificarMarca } from '../../services/brand.service.jsx';
+import { registrarMarca, listarMarcas, eliminarMarca, modificarMarca } from '../../services/brand.service';
+import '../../index.css'; // Asegúrate de importar el archivo CSS donde defines las clases CSS
 
 const BrandDashboard = () => {
     const [marca, setMarca] = useState('');
@@ -10,6 +11,9 @@ const BrandDashboard = () => {
     const [campoVacio, setCampoVacio] = useState(null);
     const [isEditing, setIsEditing] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    const [showSangre, setShowSangre] = useState(false);
+    const [showChau, setShowChau] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -59,6 +63,10 @@ const BrandDashboard = () => {
             const { _id } = modelos[index];
             await eliminarMarca(_id);
             await listarModelos();
+            setShowSangre(true);
+            setTimeout(() => setShowSangre(false), 3000);
+            setShowChau(true);
+            setTimeout(() => setShowChau(false), 3000);
         } catch (error) {
             console.error('Error al eliminar la marca:', error);
         }
@@ -72,10 +80,21 @@ const BrandDashboard = () => {
         setEditingIndex(index);
     };
 
+    // Función para filtrar modelos según el término de búsqueda
+    const handleSearch = (e) => {
+        setSearchTerm(e.target.value);
+    };
+
+    // Filtrar modelos según el término de búsqueda
+    const filteredModelos = modelos.filter((modelo) =>
+        modelo.Marca.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        modelo.Modelo.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+
     return (
-        <div className="flex justify-center items-start h-screen bg-white text-black">
-            <div className="flex w-full max-w-6xl mt-8"> {/* Añadido margin-top */}
-                <form onSubmit={handleSubmit} className="bg-white border rounded-lg shadow-lg p-8 flex-1 mr-4">
+        <div className="flex justify-center items-start h-screen bg-white text-black relative">
+            <div className="flex flex-col w-full max-w-6xl mt-8 relative">
+                <form onSubmit={handleSubmit} className="bg-white border rounded-lg shadow-lg p-8 flex-1 mb-4">
                     <h2 className="text-2xl font-bold mb-6">{isEditing ? 'Modificar Marca' : 'Registrar Marca'}</h2>
                     {error && <p className="text-red-500">{error}</p>}
                     <div className="mb-4">
@@ -104,9 +123,17 @@ const BrandDashboard = () => {
                         {isEditing ? 'Modificar Marca' : 'Registrar Marca'}
                     </button>
                 </form>
-                <div className="bg-white border rounded-lg shadow-lg p-8 flex-1 mt-8"> {/* Añadido margin-top */}
+                <div className="bg-white border rounded-lg shadow-lg p-8 flex-1 mt-8">
                     <h2 className="text-2xl font-bold mb-6">Lista de Marcas</h2>
-                    {error && <p className="text-red-500">{error}</p>}
+                    <div className="mb-4">
+                        <input
+                            type="text"
+                            className="w-full border rounded-md py-2 px-4"
+                            placeholder="Buscar marca o modelo"
+                            value={searchTerm}
+                            onChange={handleSearch}
+                        />
+                    </div>
                     <table className="table-fixed w-full">
                         <thead className="bg-gray-200">
                             <tr>
@@ -116,8 +143,8 @@ const BrandDashboard = () => {
                             </tr>
                         </thead>
                         <tbody>
-                            {modelos.length > 0 ? (
-                                modelos.map((modelo, index) => (
+                            {filteredModelos.length > 0 ? (
+                                filteredModelos.map((modelo, index) => (
                                     <tr key={index}>
                                         <td className="border px-4 py-2">{modelo.Marca}</td>
                                         <td className="border px-4 py-2">{modelo.Modelo}</td>
@@ -145,6 +172,8 @@ const BrandDashboard = () => {
                         </tbody>
                     </table>
                 </div>
+                {showSangre && <div className="sangre text-5xl">👋 Hasta la vista, baby! 🤖💥</div>}
+                {showChau && <div className="mensaje-chau text-6xl">🚀 ¡Hasta el infinito y más allá! 🌌👋</div>}
             </div>
         </div>
     );
