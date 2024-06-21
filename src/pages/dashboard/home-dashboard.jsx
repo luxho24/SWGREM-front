@@ -55,6 +55,7 @@ const ShoppingCart = () => {
                     <option value="Todos">Todos</option>
                     <option value="Pantallas">Pantallas</option>
                     <option value="Baterias">Baterias</option>
+                    <option value="Placas de cargas">Baterias</option>
                     {/* Add more categories as needed */}
                 </select>
             </div>
@@ -73,6 +74,7 @@ const ShoppingCart = () => {
                                 className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4"
                                 onChange={(e) => agregarAlCarrito(producto, parseInt(e.target.value, 10))}
                             />
+                            <img src={url='/scr../pantalla.jpg'} alt={producto.nombre} className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500 mb-4" />
                             <button
                                 onClick={() => agregarAlCarrito(producto, 1)}
                                 className="w-full bg-indigo-500 text-white py-2 rounded-md hover:bg-indigo-600 focus:outline-none focus:bg-indigo-600"
