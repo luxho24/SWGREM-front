@@ -109,14 +109,12 @@ const ShoppingCart = () => {
             </button>
 
             {showModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-                    <div className="bg-white p-4 rounded-md">
-                        <img 
-                            src={getImageForCategory(categoria)} 
-                            alt={`Imagen de ${categoria}`} 
-                            className="w-64 h-64" 
-                        />
-                    </div>
+                <div className="mt-4">
+                    <img 
+                        src={getImageForCategory(categoria)} 
+                        alt={`Imagen de ${categoria}`} 
+                        className="w-64 h-64" 
+                    />
                 </div>
             )}
         </div>
