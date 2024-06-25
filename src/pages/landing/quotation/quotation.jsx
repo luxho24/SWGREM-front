@@ -13,6 +13,8 @@ const Quotation = () => {
         name: "",
         email: "",
         phone: "",
+        photos: [], // nuevo campo para fotos
+        video: null // nuevo campo para video
     });
 
     const [isChecked, setIsChecked] = useState(false);
@@ -38,13 +40,20 @@ const Quotation = () => {
         }
     };
 
-    // const handleSubmit = (e) => {
-    //     e.preventDefault();
-    //     const formData2 = {
-    //         ...formData,
-    //     };
-    //     console.log("Formulario enviado", formData2);
-    // };
+    const handlePhotoChange = (e) => {
+        const files = Array.from(e.target.files);
+        setFormData({
+            ...formData,
+            photos: files,
+        });
+    };
+
+    const handleVideoChange = (e) => {
+        setFormData({
+            ...formData,
+            video: e.target.files[0],
+        });
+    };
 
     const handleReload = () => {
         setFormData({
@@ -56,6 +65,8 @@ const Quotation = () => {
             name: "",
             email: "",
             phone: "",
+            photos: [],
+            video: null,
         });
         setIsChecked(false);
         // Desmarcar todos los checkboxes
@@ -70,8 +81,19 @@ const Quotation = () => {
         // formData.selectedProblems = formData.selectedProblems.join(", ");
         formData.otherProblem = "-";
 
+        const formDataToSend = new FormData();
+        for (const key in formData) {
+            if (key === 'photos') {
+                formData.photos.forEach((photo, index) => {
+                    formDataToSend.append(`photo${index}`, photo);
+                });
+            } else {
+                formDataToSend.append(key, formData[key]);
+            }
+        }
+
         try {
-            await createQuotation(formData);
+            await createQuotation(formDataToSend);
             handleReload();
             toast.success('Cotización enviada');
         } catch (error) {
@@ -90,7 +112,7 @@ const Quotation = () => {
                 te ayudaremos a resolverlo. ¡Estamos aquí para ayudarte!
             </p>
             <hr className="w-[40%] h-[2px] bg-gray-500 mb-6" />
-            <form onSubmit={handleSubmit} className="w-[40%] mx-auto">
+            <form onSubmit={handleSubmit} className="w-[40%] mx-auto" encType="multipart/form-data">
                 <div className="mb-4">
                     <label
                         htmlFor="brand"
@@ -110,16 +132,6 @@ const Quotation = () => {
                         <option value="" disabled hidden>
                             Seleccione marca de su dispositivo
                         </option>
-                        {/* {DATA_PHONES.map((phone) => (
-                            <optgroup key={phone.brand} label={phone.brand}>
-                                {phone.model.map((model) => (
-                                    <option key={model} value={model}>
-                                        {model}
-                                    </option>
-                                ))}
-                            </optgroup>
-                        ))} */}
-
                         {DATA_PHONES.map((phone) => (
                             <option key={phone.brand} value={phone.brand}>
                                 {phone.brand}
@@ -134,7 +146,6 @@ const Quotation = () => {
                     >
                         Modelo del celular
                     </label>
-
                     <select
                         name="model"
                         id="model"
@@ -306,6 +317,37 @@ const Quotation = () => {
                 </div>
                 <div className="mb-4">
                     <label
+                        htmlFor="photos"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Fotos del problema (puede seleccionar múltiples)
+                    </label>
+                    <input
+                        type="file"
+                        id="photos"
+                        accept="image/*"
+                        multiple
+                        onChange={handlePhotoChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label
+                        htmlFor="video"
+                        className="block text-gray-700 text-sm font-bold mb-2"
+                    >
+                        Video del problema
+                    </label>
+                    <input
+                        type="file"
+                        id="video"
+                        accept="video/*"
+                        onChange={handleVideoChange}
+                        className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-indigo-500"
+                    />
+                </div>
+                <div className="mb-4">
+                    <label
                         htmlFor="name"
                         className="block text-gray-700 text-sm font-bold mb-2"
                     >
@@ -410,8 +452,6 @@ const Quotation = () => {
                     </button>
                 </div>
                 <Toaster />
-
-                {/* {JSON.stringify({ formData })} */}
             </form>
         </div>
     );
