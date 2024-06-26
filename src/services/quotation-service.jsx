@@ -1,13 +1,20 @@
 import clienteAxios from "../config/axios";
 
-export const createQuotation = async (form) => {
+export const createQuotation = async (formData) => {
     try {
-        const { data } = await clienteAxios.post("/cotizaciones/register", form);
-        return data;
+      const response = await clienteAxios.post("/cotizaciones/register", formData);
+      return response.data; 
     } catch (error) {
-        console.error("Error creating quotation", error);
+      if (error.response) {
+        console.error("Error de respuesta:", error.response.data);
+      } else if (error.request) {
+        console.error("No se recibió respuesta del servidor:", error.request);
+      } else {
+        console.error("Error al procesar la solicitud:", error.message);
+      }
+      throw error; 
     }
-};
+  };
 
 export const getQuotations = async () => {
     const token = localStorage.getItem("token");
