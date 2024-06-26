@@ -12,8 +12,6 @@ const BrandDashboard = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingIndex, setEditingIndex] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    const [showSangre, setShowSangre] = useState(false);
-    const [showChau, setShowChau] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -63,10 +61,6 @@ const BrandDashboard = () => {
             const { _id } = modelos[index];
             await eliminarMarca(_id);
             await listarModelos();
-            setShowSangre(true);
-            setTimeout(() => setShowSangre(false), 3000);
-            setShowChau(true);
-            setTimeout(() => setShowChau(false), 3000);
         } catch (error) {
             console.error('Error al eliminar la marca:', error);
         }
@@ -172,8 +166,6 @@ const BrandDashboard = () => {
                         </tbody>
                     </table>
                 </div>
-                {showSangre && <div className="sangre text-5xl">👋 Hasta la vista, baby! 🤖💥</div>}
-                {showChau && <div className="mensaje-chau text-6xl">🚀 ¡Hasta el infinito y más allá! 🌌👋</div>}
             </div>
         </div>
     );

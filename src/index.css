@@ -1,38 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-/**Broma, Eliminar lo de abajo**/
-
-@keyframes drop {
-  0% {
-    opacity: 0;
-    transform: translateY(-50px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.sangre {
-    position: absolute;
-    color: red;
-    font-size: 5rem; /* Tamaño de fuente más grande */
-    font-weight: bold; /* Texto en negrita */
-    animation: drop 1s ease-in-out forwards;
-}
-
-.mensaje-chau {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 6rem; /* Tamaño de fuente más grande */
-    color: red;
-    font-weight: bold; /* Texto en negrita */
-    animation: drop 1s ease-in-out forwards;
-}
-
-
